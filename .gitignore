@@ -3,3 +3,9 @@
 *.ply
 __pycache__/
 3d-geometry/build/
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+Gemfile.lock
