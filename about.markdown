@@ -17,4 +17,4 @@ Hit my [homepage](https://www.changjiangcai.com), [Github](https://github.com/cc
 
 
 ## Footer Icons
-The 48x48 SVG icons of Google Scholar, GitHub and LinkedIn are downloaded from [icons8.com](https://icons8.com/icons/), and are saved at [docs/icons]({% link docs/icons/icons8-github.svg %}). The SVG images are changed to Base 64 CSS Background image using [this online tool](https://base64.guru/converter/encode/image/svg0). See the format as this [css file](https://github.com/ccj5351/mystudynotes/blob/master/_sass/_svg-icons.scss) for more details.
+The 48x48 SVG icons of Google Scholar, GitHub and LinkedIn are downloaded from [icons8.com](https://icons8.com/icons/), and are saved at [docs/icons](https://github.com/ccj5351/mystudynotes/tree/master/docs/icons). The SVG images are changed to Base 64 CSS Background image using [this online tool](https://base64.guru/converter/encode/image/svg0). See the format as this [css file](https://github.com/ccj5351/mystudynotes/blob/master/_sass/_svg-icons.scss) for more details.
