@@ -900,7 +900,7 @@ There are two common backbone architecture choices for diffusion models: U-Net a
 4. The transformer decoder outputs noise predictions and an output diagonal covariance prediction.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DiT.png %}" style="width: 75%;" class="center" />
+<img src="/docs/auto-encoding/images/2021-07-11-diffusion-models/DiT.png" style="width: 75%;" class="center" />
 <br><figcaption>Fig. 19. The Diffusion Transformer (DiT) architecture.<br/>(Image source: <a href="https://arxiv.org/abs/2212.09748" target="_blank">Peebles & Xie, 2023</a>)</figcaption>
 </div>
 
