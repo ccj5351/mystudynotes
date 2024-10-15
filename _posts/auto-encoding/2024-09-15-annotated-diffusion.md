@@ -1,4 +1,10 @@
-# The Annotated Diffusion Model and Study Notes
+---
+layout: post
+title:  "The Annotated Diffusion Model and Study Notes"
+date:   2024-09-15 16:18:12 -0700
+categories: Diffusion
+---
+
 
 This is my study note of the blog
 [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) by Niels Rogge and Kashif Rasul.

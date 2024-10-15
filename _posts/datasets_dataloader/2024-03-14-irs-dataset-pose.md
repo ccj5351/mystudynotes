@@ -1,4 +1,9 @@
-# How to Calculate Camera-to-world Pose in the OpenCV-Style Coordinate System for IRS Dataset
+---
+layout: post
+title:  "How to Calculate Camera-to-world Pose in the OpenCV-Style Coordinate System for IRS Dataset?"
+date:   2024-03-14 16:18:12 -0700
+categories: dataset
+---
 
 ## 0. Code
 

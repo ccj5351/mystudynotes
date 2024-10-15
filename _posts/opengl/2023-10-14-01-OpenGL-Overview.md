@@ -1,4 +1,9 @@
-# OpenGL Overview
+---
+layout: post
+title:  "OpenGL 01 - Overview"
+date:   2023-10-14 16:18:12 -0700
+categories: OpenGL
+--- 
 
 > see: https://www.songho.ca/opengl/gl_overview.html
 

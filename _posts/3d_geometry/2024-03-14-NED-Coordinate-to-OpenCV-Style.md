@@ -1,4 +1,9 @@
-# How to calculate the transformation matrix between NED and OpenCV coordinate systems
+---
+layout: post
+title:  "How to calculate the transformation matrix between NED and OpenCV coordinate systems"
+date:   2024-03-14 16:18:12 -0700
+categories: Computer-Vision Geometry
+---
 
 ## NED (North-East-Down) Coordinate System
 

@@ -1,8 +1,9 @@
-# 03 - OpenGL Transformation
-@(3D Computer Vision)[OpenGL]
-
-[TOC]
-
+---
+layout: post
+title:  "OpenGL 03 - Transformation"
+date:   2023-10-14 16:18:12 -0700
+categories: OpenGL
+--- 
 
 **Related Topics:**  [OpenGL Pipeline](https://www.songho.ca/opengl/gl_pipeline.html),  [OpenGL Projection Matrix](https://www.songho.ca/opengl/gl_projectionmatrix.html),  [OpenGL Matrix Class](https://www.songho.ca/opengl/gl_matrix.html)  
 

@@ -19,7 +19,32 @@ gem "minima", "~> 2.5"
 gem "github-pages", "~> 232", group: :jekyll_plugins
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
+    gem "jekyll-feed", "~> 0.12"
+    gem 'classifier-reborn'
+    gem 'jekyll'
+    gem 'jekyll-archives'
+    gem 'jekyll-email-protect'
+    gem 'jekyll-get-json'
+    gem 'jekyll-imagemagick'
+    gem 'jekyll-jupyter-notebook'
+    gem 'jekyll-link-attributes'
+    gem 'jekyll-minifier'
+    gem 'jekyll-paginate-v2'
+    gem 'jekyll-regex-replace'
+    gem 'jekyll-scholar'
+    gem 'jekyll-sitemap'
+    gem 'jekyll-tabs'
+    gem 'jekyll-toc'
+    gem 'jekyll-twitter-plugin'
+    gem 'jemoji'
+    #gem 'mini_racer'
+    gem 'unicode_utils'
+    gem 'webrick'
+end
+group :other_plugins do
+    gem 'css_parser'
+    gem 'feedjira'
+    gem 'httparty'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -35,3 +60,4 @@ gem "wdm", "~> 0.1", :platforms => [:mingw, :x64_mingw, :mswin]
 # Lock `http_parser.rb` gem to `v0.6.x` on JRuby builds since newer versions of the gem
 # do not have a Java counterpart.
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
+

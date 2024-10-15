@@ -1,10 +1,11 @@
-# 04 - OpenGL Camera
-
-@(3D Computer Vision)[OpenGL]
+---
+layout: post
+title:  "OpenGL 04 - Camera"
+date:   2023-10-14 16:18:12 -0700
+categories: OpenGL
+--- 
 
 > see https://www.songho.ca/opengl/gl_camera.html
-
-[TOC]
 
 
 **Related Topics:**  [OpenGL Transform](https://www.songho.ca/opengl/gl_transform.html),  [OpenGL Projection Matrix](https://www.songho.ca/opengl/gl_projectionmatrix.html),  [Quaternion to Rotation Matrix](https://www.songho.ca/opengl/gl_quaternion.html)  

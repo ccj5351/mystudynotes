@@ -1,4 +1,10 @@
-# Jensen's Inequality
+---
+layout: post
+title:  "Jensen's Inequality"
+date:   2024-09-17 16:18:12 -0700
+categories: Transformer
+---
+
 > see the blog at https://www.probabilitycourse.com/chapter6/6_2_5_jensen's_inequality.php
 
 Remember that variance of every random variable $X$ is a positive value, i.e.,

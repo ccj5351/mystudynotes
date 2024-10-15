@@ -1,4 +1,9 @@
-# A Basic Environment Used for Deep Learnig and Computer Vision
+---
+layout: post
+title:  "A Basic Environment Used for Deep Learnig and Computer Vision"
+date:   2024-08-11 16:18:12 -0700
+categories: Coding
+---
 
 This is a basic conda environment used by me to run deep learning and computer vision experiments.
 

@@ -1,4 +1,10 @@
-# ELBO — What & Why
+---
+layout: post
+title:  "ELBO — What & Why"
+date:   2024-08-14 16:18:12 -0700
+categories: Transformer
+---
+
 
 > - see the original article at https://yunfanj.com/blog/2021/01/11/ELBO.html, writen by Jan 11, 2021  
 > - updated and noted by Changjiang Cai on June 4, 2024.  

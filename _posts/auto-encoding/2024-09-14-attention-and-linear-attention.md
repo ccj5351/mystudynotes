@@ -1,4 +1,10 @@
-# Attention and Linear Attention
+---
+layout: post
+title:  "Attention and Linear Attention"
+date:   2024-09-14 16:18:12 -0700
+categories: Transformer
+---
+
 
 ## Attention vs Linear Attention
 Please see this figure which compares regular attention vs linear attention. This figure is copied from the paper [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243) or the github repo [Linear Attention Transformer](https://github.com/lucidrains/linear-attention-transformer).

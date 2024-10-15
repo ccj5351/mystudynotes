@@ -1,4 +1,9 @@
-# OpenGL Rendering Pipeline
+---
+layout: post
+title:  "OpenGL 02 - Rendering Pipeline"
+date:   2023-10-14 16:18:12 -0700
+categories: OpenGL
+--- 
 
 > see: https://www.songho.ca/opengl/gl_pipeline.html
 

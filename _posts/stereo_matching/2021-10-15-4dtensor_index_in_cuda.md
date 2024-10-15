@@ -1,4 +1,9 @@
-# How to index a 4D tensor in your own cuda kernel function
+---
+layout: post
+title:  "How to index a 4D tensor in your own cuda kernel function"
+date:   2021-10-15 16:18:12 -0700
+categories: CUDA
+---
 
 ## grid, block and thred in CUDA
 - CUDA defines built-in 3D variables for threads and blocks. Threads are indexed using the built-in 3D variable `threadIdx`. Three-dimensional indexing provides a natural way to index elements in vectors, matrix, and volume and makes CUDA programming easier. 

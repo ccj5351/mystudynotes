@@ -1,5 +1,10 @@
+---
+layout: post
+title:  "Homography"
+date:   2024-04-09 16:18:12 -0700
+categories: homography
+---
 
-# Homography
 
 > see: OpenCV tutorial at https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html  
 > see: Multiple View Geometry Tutorials at https://www.robots.ox.ac.uk/~az/tutorials/  
