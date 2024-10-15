@@ -65,11 +65,6 @@ layout: default
     <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a> -
     {% endif %}
 
-    {% if post_date == "07-01" %}
-    <i>{{ post.date | date: "%-d %b %Y" }} 🇨🇦</i>
-    {% else %}
-    <i>{{ post.date | date: "%-d %b %Y" }}</i>
-    {% endif %}
   </p>
 
   {% endfor %}
