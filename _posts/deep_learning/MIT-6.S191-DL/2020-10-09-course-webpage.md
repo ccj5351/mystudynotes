@@ -7,4 +7,4 @@ categories: deep learning
 
 ## Course website
 
-See this link http://introtodeeplearning.com/.
+See this course [link](http://introtodeeplearning.com/).
