@@ -48,6 +48,7 @@ This blog will discuss another type of generative model - `Diffusion models`.
 `Diffusion models` are inspired by non-equilibrium thermodynamics. They define a `Markov chain of diffusion` steps to slowly add random noise to data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data).
 
 
+![test](/docs/auto-encoding/images/2021-07-11-diffusion-models/generative-overview.png)
 
 <div  align="center">
 <img  src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/generative-overview.png %}"  alt="Overview of different types of generative models. "  width="700"  />
@@ -64,12 +65,12 @@ Several diffusion-based generative models have been proposed with similar ideas 
 
 ### Forward diffusion process
 
-Given a data point sampled from a real data distribution $\mathbf{x}_0 \sim q(\mathbf{x})$, let us define a  `forward diffusion process`  in which we add small amount of Gaussian noise to the sample in $T$ steps, producing a sequence of noisy samples $\mathbf{x}_1, \dots, \mathbf{x}_T$. The step sizes are controlled by a `variance schedule`$\{\beta_t \in (0, 1)\}_{t=1}^T$.
+Given a data point sampled from a real data distribution <span>$\mathbf{x}_0 \sim q(\mathbf{x})$</span>, let us define a  `forward diffusion process`  in which we add small amount of Gaussian noise to the sample in $T$ steps, producing a sequence of noisy samples $\mathbf{x}_1, \dots, \mathbf{x}_T$. The step sizes are controlled by a `variance schedule`$\{\beta_t \in (0, 1)\}_{t=1}^T$.
 
 $$
 q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \quad q(\mathbf{x}_{1:T} \vert \mathbf{x}_0) = \prod^T_{t=1} q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) 
 \tag{1}
-$$ 
+$$
 
 
 The data sample $\mathbf{x}_0$ gradually loses its distinguishable features as the step  $t$ becomes larger. Eventually when $T \to \infty$, $\mathbf{x}_T$ is equivalent to an isotropic Gaussian distribution.
