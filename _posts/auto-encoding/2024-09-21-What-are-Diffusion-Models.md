@@ -9,6 +9,7 @@ categories: Transformer
 >  - See the original blog at https://lilianweng.github.io/posts/2021-07-11-diffusion-models/, written by Lilian Weng, on July 11, 2021.
 >  - See other blogs written by Lilian Weng about three types of generative models, including [GAN](https://lilianweng.github.io/posts/2017-08-20-gan/),  [VAE](https://lilianweng.github.io/posts/2018-08-12-vae/), and  [Flow-based](https://lilianweng.github.io/posts/2018-10-13-flow-models/)  models.
 >  - A few annotations (especially for the equations) and study notes were added by me on June 15, 2024.
+> - Watch this good video by Prof. [Jia-Bin Huang](https://jbhuang0604.github.io/) to explain [How I Understand Diffusion Models](https://www.youtube.com/watch?v=i2qSxMVeVLI&t=588s).
 
 ---
 
@@ -48,10 +49,8 @@ This blog will discuss another type of generative model - `Diffusion models`.
 `Diffusion models` are inspired by non-equilibrium thermodynamics. They define a `Markov chain of diffusion` steps to slowly add random noise to data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data).
 
 
-![test](/docs/auto-encoding/images/2021-07-11-diffusion-models/generative-overview.png)
-
 <div  align="center">
-<img  src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/generative-overview.png %}"  alt="Overview of different types of generative models. "  width="700"  />
+<img  src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/generative-overview.png %}" alt="Overview of different types of generative models. "  width="700"  />
 <br><figcaption>
 Fig. 1. Overview of different types of generative models.
 </figcaption>
@@ -65,7 +64,7 @@ Several diffusion-based generative models have been proposed with similar ideas 
 
 ### Forward diffusion process
 
-Given a data point sampled from a real data distribution $\mathbf{x}\_0 \sim q(\mathbf{x})$, let us define a  `forward diffusion process`  in which we add small amount of Gaussian noise to the sample in $T$ steps, producing a sequence of noisy samples $\mathbf{x}_1, \dots, \mathbf{x}_T$. The step sizes are controlled by a `variance schedule`$\{\beta_t \in (0, 1)\}_{t=1}^T$.
+Given a data point sampled from a real data distribution $\mathbf{x}\_0 \sim q(\mathbf{x})$, let us define a  `forward diffusion process`  in which we add small amount of Gaussian noise to the sample in $T$ steps, producing a sequence of noisy samples $\mathbf{x}\_1, \dots, \mathbf{x}\_T$. The step sizes are controlled by a `variance schedule`$\{\beta\_t \in (0, 1)\}\_{t=1}^T$.
 
 $$
 q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \quad q(\mathbf{x}_{1:T} \vert \mathbf{x}_0) = \prod^T_{t=1} q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) 
@@ -76,22 +75,23 @@ $$
 The data sample $\mathbf{x}_0$ gradually loses its distinguishable features as the step  $t$ becomes larger. Eventually when $T \to \infty$, $\mathbf{x}_T$ is equivalent to an isotropic Gaussian distribution.
 
 
+
 <div  align="center">
-<img  src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDPM.png %}"  alt="Overview of different types of generative models. "  width="800"  />
+<img  src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDPM.png %}"  alt="Overview of different types of generative models. "  width="800"  />
 <br><figcaption>
 Fig. 2. The Markov chain of forward (reverse) diffusion process of generating a sample by slowly adding (removing) noise. <br> (Image source: <a href="https://arxiv.org/abs/2006.11239" target="_blank">Ho et al. 2020</a> with a few additional annotations).
 </figcaption>
 </div>
 
-<a id="nice"></a>A nice property of the above process is that we can sample $\mathbf{x}_t$  at any arbitrary time step $t$ in a closed form using  [reparameterization trick](https://lilianweng.github.io/posts/2018-08-12-vae/#reparameterization-trick). 
+<a id="nice"></a>A nice property of the above process is that we can sample $\mathbf{x} \_t$  at any arbitrary time step $t$ in a closed form using  [reparameterization trick](https://lilianweng.github.io/posts/2018-08-12-vae/#reparameterization-trick). 
 
 ---
 
 Recall: **<font color='red'> Reparameterization Trick </font>** :
 
-- The expectation term in the loss function invokes generating samples from $\mathbf{z} \sim q_\phi(\mathbf{z} \vert \mathbf{x})$. 
+- The expectation term in the loss function invokes generating samples from $\mathbf{z} \sim q\_\phi(\mathbf{z} \vert \mathbf{x})$. 
 - Sampling is a `stochastic process` and therefore we cannot backpropagate the gradient. 
-- To make it trainable, the reparameterization trick is introduced: It is often possible to express the random variable $\mathbf{z}$ as a deterministic variable $\mathbf{z} = \mathcal{T}_\phi(\mathbf{x}, \boldsymbol{\epsilon})$, where $\boldsymbol{\epsilon}$ is an auxiliary independent random variable, and the transformation function $\mathcal{T}_\phi$ parameterized by $\phi$ converts $\boldsymbol{\epsilon}$ to $\mathbf{z}$.
+- To make it trainable, the reparameterization trick is introduced: It is often possible to express the random variable $\mathbf{z}$ as a deterministic variable $\mathbf{z} = \mathcal{T}\_\phi(\mathbf{x}, \boldsymbol{\epsilon})$, where $\boldsymbol{\epsilon}$ is an auxiliary independent random variable, and the transformation function $\mathcal{T}\_\phi$ parameterized by $\phi$ converts $\boldsymbol{\epsilon}$ to $\mathbf{z}$.
 
 - For example, a common choice of the form of $q_\phi(\mathbf{z}\vert\mathbf{x})$ is a multivariate Gaussian with a diagonal covariance structure:
 
@@ -107,7 +107,7 @@ $$
 
  ---
 
-Then given equation (2), we can convert equation (1) as below. Let $\alpha_t = 1 - \beta_t$ and $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$ :
+Then given equation (2), we can convert equation (1) as below. Let $\alpha\_t = 1 - \beta\_t$ and $\bar{\alpha}\_t = \prod_{i=1}^t \alpha\_i$ :
 
 $$
 \begin{aligned}
@@ -127,7 +127,7 @@ $$
 
 (*) Recall that when we merge two Gaussians  with different variance, $\mathcal{N}(\mathbf{0}, \sigma_1^2\mathbf{I})$ and $\mathcal{N}(\mathbf{0}, \sigma_2^2\mathbf{I})$, the new distribution is $\mathcal{N}(\mathbf{0}, (\sigma_1^2 + \sigma_2^2)\mathbf{I})$. Here the merged standard deviation is $\sqrt{(1 - \alpha_t) + \alpha_t (1-\alpha_{t-1})} = \sqrt{1 - \alpha_t\alpha_{t-1}}$.
 
-Usually, we can afford `a larger update step` when the sample gets noisier, so $\beta_1 < \beta_2 < \dots < \beta_T$ and therefore $\bar{\alpha}_1 > \dots > \bar{\alpha}_T$.
+Usually, we can afford `a larger update step` when the sample gets noisier, so $\beta\_1 < \beta\_2 < \dots < \beta\_T$ and therefore $\bar{\alpha}\_1 > \dots > \bar{\alpha}\_T$.
 
 
 #### Connection with stochastic gradient Langevin dynamics
@@ -147,7 +147,7 @@ Compared to standard SGD, stochastic gradient Langevin dynamics injects `Gaussia
 
 ### Reverse diffusion process
 
-If we can reverse the above process and sample from $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. Note that if $\beta_t$ is small enough, $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ will also be Gaussian, which can be parameterized as
+If we can reverse the above process and sample from $q(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}\_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. Note that if $\beta\_t$ is small enough, $q(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$ will also be Gaussian, which can be parameterized as
 
 $$ q (\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu(\mathbf{x}_{t},t), \Sigma (\mathbf{x}_{t},t))
 \tag{4.2}
@@ -159,14 +159,14 @@ with
 
 ---
 
-<font color='red'> Unfortunately, we cannot easily estimate </font>  $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ because it needs to use <font color='red'> the entire dataset </font>. 
+<font color='red'> Unfortunately, we cannot easily estimate </font> $q(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$ because it needs to use <font color='red'> the entire dataset </font>. 
 
 - Recall Bayes’ rule:
 $$ 
 \begin{aligned}
 q(\mathbf{x}_{t-1} \vert \mathbf{x}_t) 
 &=  \frac{ q(\mathbf{x}_t \vert \mathbf{x}_{t-1})  q(\mathbf{x}_{t-1}) }{ q(\mathbf{x}_t ) } \\
-& \xRightarrow[\text{}]{\text{w.r.t hidden var. } z}   \frac{ q(\mathbf{x}_t \vert \mathbf{x}_{t-1})  q(\mathbf{x}_{t-1}) }{ \int_{z} q\left( \mathbf {x_t}, z \right) dz } \\
+& \xrightarrow{\text{w.r.t hidden var. } z}   \frac{ q(\mathbf{x}_t \vert \mathbf{x}_{t-1})  q(\mathbf{x}_{t-1}) }{ \int_{z} q\left( \mathbf {x_t}, z \right) dz } \\
 &=  \frac{ q(\mathbf{x}_t \vert \mathbf{x}_{t-1})  q(\mathbf{x}_{t-1}) }{ \int_{z} q\left( \mathbf {x_t} \vert z \right) q\left( \mathbf {z} \right) dz } 
 \end{aligned}
 \tag{5}
@@ -176,13 +176,13 @@ $$
 
 
 - Another way to understand the "intractability" is that there are unknown parameters in the conditional distribution $q(\mathbf{x}_{t-1} | \mathbf{x}_t)$ as in Eq (4.2). 
-We do not know the mean $\mu(\cdot)$ and the variance $\Sigma(\cdot)$, and hence we <font color='red'>**CANNOT**</font> leverage the reparameterization trick to do the sampling iteratively:
+We do not know the mean $\mu(\cdot)$ and the variance $\Sigma(\cdot)$, and hence we **<font color='red'> CANNOT </font>** leverage the reparameterization trick to do the sampling iteratively:
 
 $$\mathbf{x}_{t-1} = \mu \mathbf{x}_{t} +  \sqrt{\Sigma} \mathbf{\epsilon_{t}}
 \tag{5.2}
 $$
 
-- We CANNOT get $\mathbf{x}_{t-1}$ from $\mathbf{x}_{t}$ based on this unknown conditional probability and the **reparameterization trick** as in Eq (5.2).
+- We CANNOT get $\mathbf{x}\_{t-1}$ from $\mathbf{x}\_{t}$ based on this unknown conditional probability and the **reparameterization trick** as in Eq (5.2).
 
 ---- 
 
@@ -200,7 +200,7 @@ with two parameters estimated by model $p_\theta$ as
 
 
 <div  align="center">
-<img  src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/diffusion-example.png %}"  alt="Overview of different types of generative models. "  width="900"  />
+<img  src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/diffusion-example.png %}"  alt="Overview of different types of generative models. "  width="900"  />
 <br><figcaption> Fig. 3. An example of training a diffusion model for modeling a 2D swiss roll data. (Image source: <a href="https://arxiv.org/abs/1503.03585" target="_blank">Sohl-Dickstein et al., 2015</a>)</figcaption>
 </div>
 
@@ -237,7 +237,7 @@ $$
 Also, Eq (1) with $\alpha_t = 1 - \beta_t$ gives 
 $$
 \begin{aligned} 
-q(\mathbf{x}_t \vert \mathbf{x}_{t-1}, \mathbf{x}_{0}) & \xRightarrow[\text{}]{ \mathbf{x}_{t} \text { and } \mathbf{x}_{t-1} \text{ are indep. to } \mathbf{x}_{0}}
+q(\mathbf{x}_t \vert \mathbf{x}_{t-1}, \mathbf{x}_{0}) & \xrightarrow[\text{}]{ \mathbf{x}_{t} \text { from } \mathbf{x}_{t-1} \text{ are indep. to } \mathbf{x}_{0}}
 q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) \\
 &= \mathcal{N}(\mathbf{x}_t; \sqrt{\alpha_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \\
 & \propto \exp{\left( -\frac{1}{2} \frac{\left(\mathbf{x}_{t} - \sqrt{ {\alpha}_{t}} \mathbf{x}_{t-1} \right)^2}{\beta_{t}} \right)}
@@ -263,7 +263,7 @@ q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)
 $$
 
 
-where $C(\mathbf{x}_t, \mathbf{x}_0)$ is some function not involving $\mathbf{x}_{t-1}$ and details are omitted. Following the standard Gaussian density function, the mean and variance can be parameterized as follows (recall that $\alpha_t = 1 - \beta_t$ and $\bar{\alpha}_t = \prod_{i=1}^T \alpha_i$):
+where $C(\mathbf{x}\_t, \mathbf{x}\_0)$ is some function not involving $\mathbf{x}\_{t-1}$ and details are omitted. Following the standard Gaussian density function, the mean and variance can be parameterized as follows (recall that $\alpha\_t = 1 - \beta\_t$ and $\bar{\alpha}\_t = \prod_{i=1}^T \alpha\_i$):
 
 $$
 \begin{aligned}
@@ -298,24 +298,25 @@ $$
 &=  \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} \mathbf{x}_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} \frac{1}{\sqrt{\bar{\alpha}_t}}\mathbf{x}_t  -  \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} \frac{1}{\sqrt{\bar{\alpha}_t}} \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t \\
 &=  \left( \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}}{\sqrt{\bar{\alpha}_{t}}} \frac{ \beta_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{\sqrt{\bar{\alpha}_{t-1}}}{\sqrt{\bar{\alpha}_{t}}} \frac{\beta_t}{1 - \bar{\alpha}_t} \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t \\
 (&\Rightarrow  \text{here we use: } \bar{\alpha}_t = \bar{\alpha}_{t-1} \cdot \alpha_t  \text{, and }   \beta_t = 1 - \alpha_t ) \\
-& =  \left( \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} + \frac{1}{\textcolor{cyan}{\sqrt{\alpha_{t}}}} \frac{ 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\textcolor{cyan}{\sqrt{\alpha_{t}}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
+& =  \left( \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} + \frac{1}{\color{cyan}{\sqrt{\alpha_{t}}}} \frac{ 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\color{cyan}{\sqrt{\alpha_{t}}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \left( \frac{\alpha_t (1 - \bar{\alpha}_{t-1})}{\sqrt{\alpha_t}(1 - \bar{\alpha}_t)} + \frac{1}{\sqrt{\alpha_{t}}} \frac{ 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \frac{1}{\sqrt{\alpha_{t}}} \left( \frac{\alpha_t (1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} +  \frac{ 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \frac{1}{\sqrt{\alpha_{t}}} \left( \frac{\alpha_t -  \alpha_t \bar{\alpha}_{t-1} + 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \frac{1}{\sqrt{\alpha_{t}}} \left( \frac{\alpha_t - \bar{\alpha}_{t} + 1 - \alpha_t }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \frac{1}{\sqrt{\alpha_{t}}} \left( \frac{ 1- \bar{\alpha}_{t} }{1 - \bar{\alpha}_t} \right) \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
 & =  \frac{1}{\sqrt{\alpha_{t}}} \cdot 1  \cdot \mathbf{x}_t  -  \frac{1}{\sqrt{\alpha_{t}}} \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \\
-&= \textcolor{cyan}{\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \Big)} \quad \quad \quad \quad \text{(12)}
+&= \color{cyan}{\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \Big)} \quad \quad \quad \quad \text{(12)}
 \end{aligned}
 $$
 
 --- 
+
 #### Short Summary
 
 Until now we have proved that:
-- The reverse conditional probability $q (\mathbf{x}_{t-1} | \mathbf{x}_t)$ as in Eq 4.2 is intractable.
-- But it is tractable when conditioned on $\mathbf{x}_0$, i.e., $q (\mathbf{x}_{t-1} | \mathbf{x}_t, \mathbf{x}_0)$ is tractable and is formulated in Eq 7 and finally expressed as a closed-form formulation as in Eq 12.
-- We will train a network (with learnable parameters $\theta$) via predicting $p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_{t})$ as in Eq 6, to approximate the intractable conditional probabilities $q (\mathbf{x}_{t-1} | \mathbf{x}_t)$ in the reverse diffusion process. 
+- The reverse conditional probability $q (\mathbf{x}_\{t-1} \vert \mathbf{x}\_t)$ as in Eq 4.2 is intractable.
+- But it is tractable when conditioned on $\mathbf{x}_0$, i.e., $q (\mathbf{x}\_{t-1} \vert \mathbf{x}\_t, \mathbf{x}\_0)$ is tractable and is formulated in Eq 7 and finally expressed as a closed-form formulation as in Eq 12.
+- We will train a network (with learnable parameters $\theta$) via predicting $p_\theta(\mathbf{x}\_{t-1} \vert \mathbf{x}\_{t})$ as in Eq 6, to approximate the intractable conditional probabilities $q (\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$ in the reverse diffusion process. 
 - How to train the network? 
 
 
@@ -353,9 +354,9 @@ L_\text{CE}
 &= - \mathbb{E}_{q(\mathbf{x}_0)} \log p_\theta(\mathbf{x}_0) \\
 &= - \mathbb{E}_{q(\mathbf{x}_0)} \log \Big( \int p_\theta(\mathbf{x}_{0:T}) d\mathbf{x}_{1:T} \Big) \\
 &= - \mathbb{E}_{q(\mathbf{x}_0)} \log \Big( \int q(\mathbf{x}_{1:T} \vert \mathbf{x}_0) \frac{p_\theta(\mathbf{x}_{0:T})}{  q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})  } d\mathbf{x}_{1:T} \Big) \\
-&= - \mathbb{E}_{q(\mathbf{x}_0)} \underbrace{ \textcolor{cyan}{\log
- \Big( \mathbb{E}_{q(\mathbf{x}_{1:T} \vert \mathbf{x}_0)} \frac{p_\theta(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})} \Big)} }_{\textcolor{green}{\log(E(\mathbf{X})) \geq E[\log(\mathbf{X})] \quad \because \log(\cdot)\text{ is concave} }}  \\
-&\leq - \underbrace{\mathbb{E}_{q(\mathbf{x}_{0})}{\textcolor{cyan}{\mathbb{E}_{q(\mathbf{x}_{1:T}  \vert \mathbf{x}_{0})}}} }_{\text{merge to } \mathbf{x}_{0:T}} \log \frac{p_\theta(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})} \\
+&= - \mathbb{E}_{q(\mathbf{x}_0)} \underbrace{ \color{cyan}{\log
+ \Big( \mathbb{E}_{q(\mathbf{x}_{1:T} \vert \mathbf{x}_0)} \frac{p_\theta(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})} \Big)} }_{\color{green}{\log(E(\mathbf{X})) \geq E[\log(\mathbf{X})] \quad \because \log(\cdot)\text{ is concave} }}  \\
+&\leq - \underbrace{\mathbb{E}_{q(\mathbf{x}_{0})}{\color{cyan}{\mathbb{E}_{q(\mathbf{x}_{1:T}  \vert \mathbf{x}_{0})}}} }_{\text{merge to } \mathbf{x}_{0:T}} \log \frac{p_\theta(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})} \\
 &= - \mathbb{E}_{q(\mathbf{x}_{0:T})} \log \frac{p_\theta(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})} \\
 &= \mathbb{E}_{q(\mathbf{x}_{0:T})}\Big[\log \frac{q(\mathbf{x}_{1:T} \vert \mathbf{x}_{0})}{p_\theta(\mathbf{x}_{0:T})} \Big] = L_\text{VLB}
 \end{aligned}
@@ -370,25 +371,25 @@ L_\text{VLB} &= \mathbb{E}_{q(\mathbf{x}_{0:T})} \Big[ \log\frac{q(\mathbf{x}_{1
 (&\Rightarrow  \text{ to consider the forward diffusion process and reverse diffusion process })  \\ 
 &= \mathbb{E}_q \Big[ \log\frac{ \overbrace{\prod_{t=1}^T q(\mathbf{x}_t\vert\mathbf{x}_{t-1}) }^{\text{forward diffusion process, see Eq (1)}}}{ \underbrace{p_\theta(\mathbf{x}_T) \prod_{t=1}^T p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t) } _{\text{reverse diffusion process, see Eq 6}} } \Big] \\
 &= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=1}^T \log \frac{q(\mathbf{x}_t\vert\mathbf{x}_{t-1})}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)} \Big] \\
-&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{\textcolor{cyan}{q(\mathbf{x}_t\vert\mathbf{x}_{t-1})}}{\textcolor{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}} +  \underbrace{\log\frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}}_{\text{t=1}} \Big] \\
+&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{\color{cyan}{q(\mathbf{x}_t\vert\mathbf{x}_{t-1})}}{\color{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}} +  \underbrace{\log\frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}}_{\text{t=1}} \Big] \\
 \Big(  & \text{see Eq 8.3, forward process }    q(\mathbf{x}_t \vert \mathbf{x}_{t-1})
     \xRightarrow[\text{}]{ \mathbf{x}_{t} \text { and } \mathbf{x}_{t-1} \text{ are indep. to } \mathbf{x}_{0}}  q(\mathbf{x}_t \vert \mathbf{x}_{t-1}, \mathbf{x}_{0})  \Big) \\
-&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{\textcolor{cyan}{q(\mathbf{x}_t\vert\mathbf{x}_{t-1},\mathbf{x}_0)}}  { 
-  \textcolor{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}
+&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{\color{cyan}{q(\mathbf{x}_t\vert\mathbf{x}_{t-1},\mathbf{x}_0)}}  { 
+  \color{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}
 }
  +  \underbrace{\log\frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}}_{\text{t=1}} \Big] \\
 \Big( &\text{Baye's Theorem, forward process }  q(\mathbf{x}_{t} \vert \mathbf{x}_{t-1}, \mathbf{x}_0) 
 = {q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t}, \mathbf{x}_0)}
 \frac{ q(\mathbf{x}_{t} \vert \mathbf{x}_0)}{ q(\mathbf{x}_{t-1} \vert \mathbf{x}_0) } \Big) \\
 &= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \Big( \frac{
-  \textcolor{cyan}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}
-  }{\textcolor{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}}\cdot  \textcolor{cyan}{\frac{q(\mathbf{x}_t \vert \mathbf{x}_0)}{q(\mathbf{x}_{t-1}\vert\mathbf{x}_0)}}
+  \color{cyan}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}
+  }{\color{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}}\cdot  \color{cyan}{\frac{q(\mathbf{x}_t \vert \mathbf{x}_0)}{q(\mathbf{x}_{t-1}\vert\mathbf{x}_0)}}
  \Big) + \log \frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)} \Big] \\
 &= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{
-  \textcolor{cyan}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}}{\textcolor{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}} + \underbrace{\textcolor{cyan}{\sum_{t=2}^T \log \frac{q(\mathbf{x}_t \vert \mathbf{x}_0)}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_0)} }}_{\text{telescoping sum 裂项相消}} + \log\frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)} \Big] \\
-&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)} + \underbrace{\textcolor{cyan}{\log\frac{q(\mathbf{x}_T \vert \mathbf{x}_0)}{q(\mathbf{x}_1 \vert \mathbf{x}_0)}} + \log \frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}}_{\text{merge}} \Big]\\
+  \color{cyan}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}}{\color{red}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)}} + \underbrace{\color{cyan}{\sum_{t=2}^T \log \frac{q(\mathbf{x}_t \vert \mathbf{x}_0)}{q(\mathbf{x}_{t-1} \vert \mathbf{x}_0)} }}_{\text{telescoping sum 裂项相消}} + \log\frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)} \Big] \\
+&= \mathbb{E}_q \Big[ -\log p_\theta(\mathbf{x}_T) + \sum_{t=2}^T \log \frac{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)} + \underbrace{\color{cyan}{\log\frac{q(\mathbf{x}_T \vert \mathbf{x}_0)}{q(\mathbf{x}_1 \vert \mathbf{x}_0)}} + \log \frac{q(\mathbf{x}_1 \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}}_{\text{merge}} \Big]\\
 &= \mathbb{E}_q \Big[ \log\frac{q(\mathbf{x}_T \vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_T)} + \sum_{t=2}^T \log \frac{q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t)} - \log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1) \Big] \\
-&= \mathbb{E}_q \Big[ \textcolor{green}{\underbrace{D_\text{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_T))}_{L_T}} + \textcolor{cyan}{\sum_{t=2}^T \underbrace{D_\text{KL}(q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t))}_{L_{t-1}}} - \textcolor{red}{\underbrace{\log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}_{L_0}} \Big] 
+&= \mathbb{E}_q \Big[ \color{green}{\underbrace{D_\text{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_T))}_{L_T}} + \color{cyan}{\sum_{t=2}^T \underbrace{D_\text{KL}(q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_t))}_{L_{t-1}}} - \color{red}{\underbrace{\log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)}_{L_0}} \Big] 
 \end{aligned}
 \tag {15}
 $$
@@ -399,9 +400,9 @@ $$
 \begin{aligned}
 L_\text{VLB} &= L_T + L_{T-1} + \dots + L_0 \\
 \text{where }  
-  \textcolor{green}{L_T} &= D_\text{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_T)) \\
-  \textcolor{cyan}{L_{t-1}} &= D_\text{KL}(q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t}, \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_{t})) \text{ for } 2 \leq t \leq T \\
-  \textcolor{red}{L_0} &= - \log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)
+  \color{green}{L_T} &= D_\text{KL}(q(\mathbf{x}_T \vert \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_T)) \\
+  \color{cyan}{L_{t-1}} &= D_\text{KL}(q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t}, \mathbf{x}_0) \parallel p_\theta(\mathbf{x}_{t-1} \vert\mathbf{x}_{t})) \text{ for } 2 \leq t \leq T \\
+  \color{red}{L_0} &= - \log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)
 \end{aligned}
 \tag {16}
 $$
@@ -464,7 +465,7 @@ $$
 where $C$ is a constant not depending on $\theta$.
 
 <div  align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDPM-algo.png %}" style="width: 100%;"/>
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDPM-algo.png %}" style="width: 100%;"/>
 <br><figcaption>Fig. 4. The training and sampling algorithms in DDPM (Image source: <a href="https://arxiv.org/abs/2006.11239" target="_blank">Ho et al. 2020</a>)</figcaption>
 </div>
 
@@ -509,7 +510,7 @@ $$
 where the small offset $s$ is to prevent $\beta_t$ from being too small when close to $t=0$.
 
 <div  align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/diffusion-beta.png %}" style="width: 65%;"/>
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/diffusion-beta.png %}" style="width: 65%;"/>
 <br>
 <em> Fig. 5. Comparison of linear and cosine-based scheduling of βt during training. (Image source: <a href="https://arxiv.org/abs/2102.09672" target="_blank">Nichol & Dhariwal, 2021</a>)</em>
 </div>
@@ -530,7 +531,7 @@ However, the simple objective $L_\text{simple}$ does not depend on $\boldsymbol{
 
 
 <div  align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/improved-DDPM-nll.png %}" style="width: 70%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/improved-DDPM-nll.png %}" style="width: 70%;" class="center" />
 <br><figcaption>Fig. 6. Comparison of negative log-likelihood of improved DDPM with other likelihood-based generative models. NLL is reported in the unit of bits/dim. (Image source: <a href="https://arxiv.org/abs/2102.09672" target="_blank">Nichol & Dhariwal, 2021</a>)</figcaption>
 </div>
 
@@ -571,7 +572,7 @@ $$
 The resulting <em>ablated diffusion model</em> (<strong>ADM</strong>) and the one with additional classifier guidance (<strong>ADM-G</strong>) are able to achieve better results than SOTA generative models (e.g. BigGAN).
 
 <div  align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/conditioned-DDPM.png %}" style="width: 90%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/conditioned-DDPM.png %}" style="width: 90%;" class="center" />
 <br><figcaption>Fig. 7. The algorithms use guidance from a classifier to run conditioned generation with DDPM and DDIM. (Image source:  <a href="https://arxiv.org/abs/2105.05233" target="_blank">Dhariwal & Nichol, 2021</a>])</figcaption>
 </div>
 
@@ -670,7 +671,7 @@ $$
 While all the models are trained with $T=1000$ diffusion steps in the experiments, they observed that DDIM ($\eta=0$) can produce the best quality samples when $S$ is small, while DDPM ($\eta=1$) performs much worse on small $S$. DDPM does perform better when we can afford to run the full reverse Markov diffusion steps ($S=T=1000$). With DDIM, it is possible to train the diffusion model up to any arbitrary number of forward steps but only sample from a subset of steps in the generative process.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDIM-results.png %}" style="width: 100%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DDIM-results.png %}" style="width: 100%;" class="center" />
 <br><figcaption>Fig. 8. FID scores on CIFAR10 and CelebA datasets by diffusion models of different settings, including <font color="cyan"> DDIM </font> (η=0) and <font color="orange"> DDPM</font>. (Image source: <a href="https://arxiv.org/abs/2010.02502" target="_blank">Song et al., 2020</a>)</figcaption>
 </div>
 
@@ -683,7 +684,7 @@ Compared to DDPM, DDIM is able to:
 </ol>
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/progressive-distillation.png %}" style="width: 90%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/progressive-distillation.png %}" style="width: 90%;" class="center" />
 <br><figcaption>Fig. 9. Progressive distillation can reduce the diffusion sampling steps by half in each iteration. (Image source: <a href="https://arxiv.org/abs/2202.00512" target="_blank">Salimans & Ho, 2022</a>)</figcaption>
 </div>
 
@@ -691,14 +692,14 @@ Compared to DDPM, DDIM is able to:
 <a id="prog-distll"></a><strong>Progressive Distillation</strong> (<a href="https://arxiv.org/abs/2202.00512">Salimans &amp; Ho, 2022</a>) is a method for distilling trained deterministic samplers into new models of halved sampling steps. The student model is initialized from the teacher model and denoises towards a target where one student DDIM step matches 2 teacher steps, instead of using the original sample $\mathbf{x}_0$ as the denoise target. In every progressive distillation iteration, we can half the sampling steps.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/progressive-distillation-algo.png %}" style="width: 90%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/progressive-distillation-algo.png %}" style="width: 90%;" class="center" />
 <br><figcaption>Fig. 10. Comparison of Algorithm 1 (diffusion model training) and Algorithm 2 (progressive distillation) side-by-side, where the relative changes in progressive distillation are highlighted in green.<br/>(Image source: <a href="https://arxiv.org/abs/2202.00512" target="_blank">Salimans & Ho, 2022</a>)</figcaption>
 </div>
 
 <a id="consistency"></a><strong>Consistency Models</strong> (<a href="https://arxiv.org/abs/2303.01469">Song et al. 2023</a>) learns to map any intermediate noisy data points $\mathbf{x}_t, t > 0$ on the diffusion sampling trajectory back to its origin $\mathbf{x}_0$ directly. It is named as <em>consistency</em> model because of its <em>self-consistency</em> property as any data points on the same trajectory is mapped to the same origin.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/consistency-models.png %}" style="width: 75%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/consistency-models.png %}" style="width: 75%;" class="center" />
 <br><figcaption>Fig. 11. Consistency models learn to map any data point on the trajectory back to its origin. (Image source: <a href="https://arxiv.org/abs/2303.01469" target="_blank">Song et al., 2023</a>)</figcaption>
 </div>
 
@@ -758,7 +759,7 @@ According to the experiments in the paper, they found,
 
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/consistency-models-exp.png %}" style="width: 100%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/consistency-models-exp.png %}" style="width: 100%;" class="center" />
 <br><figcaption>Fig. 12. Comparison of consistency models' performance under different configurations. The best configuration for CD is LPIPS distance metric, Heun ODE solver, and $N=18$.  (Image source: <a href="https://arxiv.org/abs/2303.01469" target="_blank">Song et al., 2023</a>)</figcaption>
 </div>
 
@@ -769,7 +770,7 @@ According to the experiments in the paper, they found,
 <a id="ldm"></a><em>Latent diffusion model</em> (<strong>LDM</strong>; <a href="https://arxiv.org/abs/2112.10752">Rombach &amp; Blattmann, et al. 2022</a>) runs the diffusion process in the latent space instead of pixel space, making training cost lower and inference speed faster. It is motivated by the observation that most bits of an image contribute to perceptual details and the semantic and conceptual composition still remains after aggressive compression. LDM loosely decomposes the perceptual compression and semantic compression with generative modeling learning by first trimming off pixel-level redundancy with autoencoder and then manipulating / generating semantic concepts with a diffusion process on learned latent.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/image-distortion-rate.png %}" style="width: 50%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/image-distortion-rate.png %}" style="width: 50%;" class="center" />
 <br><figcaption>Fig. 13. The plot for a tradeoff between compression rate and distortion, illustrates two-stage compressions - perceptual and semantic compression. (Image source: <a href="https://arxiv.org/abs/2112.10752" target="_blank">Rombach & Blattmann, et al. 2022</a>)</figcaption>
 </div>
 
@@ -803,7 +804,7 @@ with
 - learnable weights $\mathbf{W}^{(i)}_Q \in \mathbb{R}^{d \times d^i_\epsilon}$ for query $Q$ (`note`: $Q$ is from latent variable $\mathbf{z}_t$, weights $\mathbf{W}^{(i)}_K \in \mathbb{R}^{d \times d_\tau}$ for key $K$ and weights $\mathbf{W}^{(i)}_V \in \mathbb{R}^{d \times d_\tau}$ for value $V$ (`note`: $K$ and $V$ are from the conditioning input $y$).
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/latent-diffusion-arch.png %}" style="width: 80%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/latent-diffusion-arch.png %}" style="width: 80%;" class="center" />
 <br><figcaption>Fig. 14. The architecture of the latent diffusion model (LDM). (Image source: <a href="https://arxiv.org/abs/2112.1075" target="_blank">Rombach & Blattmann, et al. 2022</a>)</figcaption>
 </div>
 
@@ -812,7 +813,7 @@ with
 To generate high-quality images at high resolution, <a href="https://arxiv.org/abs/2106.15282">Ho et al. (2021)</a> proposed to use a pipeline of multiple diffusion models at increasing resolutions. <em>Noise conditioning augmentation</em> between pipeline models is crucial to the final image quality, which is to apply strong data augmentation to the conditioning input $\mathbf{z}$ of each super-resolution model $p_\theta(\mathbf{x} \vert \mathbf{z})$. The conditioning noise helps reduce compounding error in the pipeline setup. <em>U-net</em> is a common choice of model architecture in diffusion modeling for high-resolution image generation.
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/cascaded-diffusion.png %}" style="width: 100%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/cascaded-diffusion.png %}" style="width: 100%;" class="center" />
 <br><figcaption>Fig. 15. A cascaded pipeline of multiple diffusion models at increasing resolutions. (Image source:  <a href="https://arxiv.org/abs/2106.15282" target="_blank">Ho et al. 2021</a>])</figcaption>
 </div>
 
@@ -836,7 +837,7 @@ $$
 
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/unCLIP.png %}" style="width: 100%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/unCLIP.png %}" style="width: 100%;" class="center" />
 <br><figcaption>Fig. 16. The architecture of unCLIP. (Image source:  <a href="https://arxiv.org/abs/2204.06125" target="_blank">Ramesh et al. 2022</a>])</figcaption>
 </div>
 
@@ -874,7 +875,7 @@ There are two common backbone architecture choices for diffusion models: U-Net a
 
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/U-net.png %}" style="width: 100%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/U-net.png %}" style="width: 100%;" class="center" />
 <br><figcaption>Fig. 17. The U-net architecture. Each blue square is a feature map with the number of channels labeled on top and the height x width dimension labeled on the left bottom side. The gray arrows mark the shortcut connections. (Image source: <a href="https://arxiv.org/abs/1505.04597" target="_blank">Ronneberger, 2015</a>)</figcaption>
 </div>
 
@@ -888,7 +889,7 @@ There are two common backbone architecture choices for diffusion models: U-Net a
 4. The final output is: $\mathbf{y}_c = \mathcal{F}_\theta(\mathbf{x}) + \mathcal{Z}_{\theta_{z2}}(\mathcal{F}_{\theta_c}(\mathbf{x} + \mathcal{Z}_{\theta_{z1}}(\mathbf{c})))$
 
 <div align="center">
-<img src="{% link docs/auto-encoding/images/2021-07-11-diffusion-models/ControlNet.png %}" style="width: 70%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/ControlNet.png %}" style="width: 70%;" class="center" />
 <br><figcaption>Fig. 18. The ControlNet architecture. (Image source: <a href="https://arxiv.org/abs/2302.05543" target="_blank">Zhang et al. 2023</a>)</figcaption>
 </div>
 
@@ -901,7 +902,7 @@ There are two common backbone architecture choices for diffusion models: U-Net a
 4. The transformer decoder outputs noise predictions and an output diagonal covariance prediction.
 
 <div align="center">
-<img src="/docs/auto-encoding/images/2021-07-11-diffusion-models/DiT.png" style="width: 75%;" class="center" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/2021-07-11-diffusion-models/DiT.png %}" style="width: 75%;" class="center" />
 <br><figcaption>Fig. 19. The Diffusion Transformer (DiT) architecture.<br/>(Image source: <a href="https://arxiv.org/abs/2212.09748" target="_blank">Peebles & Xie, 2023</a>)</figcaption>
 </div>
 
@@ -919,12 +920,14 @@ Transformer architecture can be easily scaled up and it is well known for that. 
 
 Cited as:
 
+
 ```plain
 Weng, Lilian. (Jul 2021). What are diffusion models? Lil's Log.    
 https://lilianweng.github.io/posts/2021-07-11-diffusion-models/.
 ```
 
 Or
+
 
 ```plain
 @article{weng2021diffusion,
@@ -938,13 +941,14 @@ Or
 ```
 
 
+
 ## References <a id="references"></a>
 
-[1] Jascha Sohl-Dickstein et al. <a href="https://arxiv.org/abs/1503.03585">“Deep Unsupervised Learning using Nonequilibrium Thermodynamics.”</a> ICML 2015.   
+[1]: Jascha Sohl-Dickstein et al. <a href="https://arxiv.org/abs/1503.03585">“Deep Unsupervised Learning using Nonequilibrium Thermodynamics.”</a> ICML 2015.   
 
-[2] Max Welling &amp; Yee Whye Teh. <a href="https://www.stats.ox.ac.uk/~teh/research/compstats/WelTeh2011a.pdf">“Bayesian learning via stochastic gradient langevin dynamics.”</a> ICML 2011.   
+[2]: Max Welling &amp; Yee Whye Teh. <a href="https://www.stats.ox.ac.uk/~teh/research/compstats/WelTeh2011a.pdf">“Bayesian learning via stochastic gradient langevin dynamics.”</a> ICML 2011.   
 
-[3] Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/1907.05600">“Generative modeling by estimating gradients of the data distribution.”</a> NeurIPS 2019.
+[3]: Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/1907.05600">“Generative modeling by estimating gradients of the data distribution.”</a> NeurIPS 2019.
 
 [4] Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/2006.09011">“Improved techniques for training score-based generative models.”</a>  NeuriPS 2020.
 
