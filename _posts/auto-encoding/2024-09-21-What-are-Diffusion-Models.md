@@ -897,11 +897,11 @@ Transformer architecture can be easily scaled up and it is well known for that. 
 
 ## References
 
-- [1]: Jascha Sohl-Dickstein et al. [“Deep Unsupervised Learning using Nonequilibrium Thermodynamics.”](https://arxiv.org/abs/1503.03585) ICML 2015.
+- `[1]`: Jascha Sohl-Dickstein et al. [“Deep Unsupervised Learning using Nonequilibrium Thermodynamics.”](https://arxiv.org/abs/1503.03585) ICML 2015.
 
-- [2]: Max Welling &amp; Yee Whye Teh. <a href="https://www.stats.ox.ac.uk/~teh/research/compstats/WelTeh2011a.pdf">“Bayesian learning via stochastic gradient langevin dynamics.”</a> ICML 2011.   
+- `[2]`: Max Welling &amp; Yee Whye Teh. <a href="https://www.stats.ox.ac.uk/~teh/research/compstats/WelTeh2011a.pdf"> “Bayesian learning via stochastic gradient langevin dynamics.”</a> ICML 2011.   
 
-- [3]: Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/1907.05600">“Generative modeling by estimating gradients of the data distribution.”</a> NeurIPS 2019.
+- `[3]`: Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/1907.05600">“Generative modeling by estimating gradients of the data distribution.”</a> NeurIPS 2019.
 
 - [4] Yang Song &amp; Stefano Ermon. <a href="https://arxiv.org/abs/2006.09011">“Improved techniques for training score-based generative models.”</a>  NeuriPS 2020.
 
@@ -935,6 +935,7 @@ Transformer architecture can be easily scaled up and it is well known for that. 
 
 - [19] Peebles &amp; Xie. <a href="https://arxiv.org/abs/2212.09748">&ldquo;Scalable diffusion models with transformers.&rdquo;</a> ICCV 2023.
 
-- [20] Zhang et al. <a href="https://arxiv.org/abs/2
+- [20] Zhang et al. [“Adding Conditional Control to Text-to-Image Diffusion Models.”](https://arxiv.org/abs/2302.05543) arxiv Preprint arxiv:2302.05543 (2023).
+
 
 ---
