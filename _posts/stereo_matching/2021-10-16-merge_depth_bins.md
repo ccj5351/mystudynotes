@@ -6,7 +6,7 @@ categories: Research
 ---
 
 ## Question: 
-- [How to merge histogram bins (edges and counts) by bin-count condition?](https://stackoverflow.com/questions/59590267/how-to-merge-histogram-bins-edges-and-counts-by-bin-count-condition)
+- See the stacoverflow question [How to merge histogram bins (edges and counts) by bin-count condition?](https://stackoverflow.com/questions/59590267/how-to-merge-histogram-bins-edges-and-counts-by-bin-count-condition)
 
 ## My answer to this question
 I met this problem in my own reserach project, so I searched this question and posted my answer, hoping to help others and myself for reviewing.
@@ -85,15 +85,27 @@ def show_hist(bin_edges, hist, fig_file = None):
     write_to_file(txt_fn, file_lists)
 ```
 
-See the histogram before ![histograme before merging](https://i.stack.imgur.com/jLwV8.png)
+See the histogram before
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/files/hist01.png %}" alt="histograme before merging"  width="700"  />
+<br><figcaption>
+Fig. 1. Histograme before merging.
+</figcaption>
+</div>
 
 and after 
 
 
-![histograme after merging](https://i.stack.imgur.com/yyJz1.png) 
 
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/files/hist02.png %}" alt="histograme after merging"  width="700"  />
+<br><figcaption>
+Fig. 2. Histograme after merging.
+</figcaption>
+</div>
 
-the bin merging. In this example, input hist bin # = 256, new hist bin # = 95, with the threshold being `12%` of `sum(hist)`.
+the bin merging. In this example, input hist bin number is 256, new hist bin number is 95, with the threshold being `12%` of `sum(hist)`.
 
 
 ## Complete Code

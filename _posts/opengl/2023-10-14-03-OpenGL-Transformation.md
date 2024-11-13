@@ -18,9 +18,14 @@ categories: OpenGL
 
 Geometric data such as vertex positions and normal vectors are transformed via  **Vertex Operation**  and  **Primitive Assembly**  operation in  [OpenGL pipeline](https://www.songho.ca/opengl/gl_pipeline.html)  before the rasterization process.
 
-<center>
-<img src="./data/gl_transform02.png" alt="OpenGL vertex transformation " width="900"/>
-</center>
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform02.png %}" alt="OpenGL vertex transformation"  width="900"  />
+<br><figcaption>
+Fig. 1. OpenGL vertex transformation.
+</figcaption>
+</div>
+
 
 ### Object Coordinates
 
@@ -165,9 +170,12 @@ OpenGL has 4 different types of matrices;  **GL_MODELVIEW**,  **GL_PROJECTION**,
 
 GL_MODELVIEW matrix combines the viewing matrix and modeling matrix into one matrix. In order to transform the view (camera), you need to move the whole scene with the inverse transformation.  **gluLookAt()**  is particularly used to set viewing transform.
 
-<center>
-<img src="./data/gl_anglestoaxes01.png" alt="4 columns of GL_MODELVIEW matrix " width="600"/>
-</center>
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_anglestoaxes01.png %}" alt="Four columns of GL_MODELVIEW matrix"  width="600"  />
+<br><figcaption>
+Fig. 2. Four columns of GL_MODELVIEW matrix.
+</figcaption>
+</div>
 
 
 The 3 matrix elements of the rightmost column ($m_{12}$,  $m_{13}$,  $m_{14}$) are for the translation transformation,  **glTranslatef()**. The element  $m_{15}$  is the  [homogeneous coordinate](https://www.songho.ca/math/homogeneous/homogeneous.html). It is specially used for projective transformation.
@@ -213,9 +221,13 @@ OpenGL provides 2 functions for GL_PROJECTION transformation.
 
 Both functions require 6 parameters to specify 6 clipping planes;  _left_,  _right_,  _bottom_,  _top_,  _near_  and  _far_  planes. 8 vertices of the viewing frustum are shown in the following image.
 
-<center>
-<img src="./data/gl_transform09.png" alt="OpenGL Perspective Viewing Frustum" width="700"/>
-</center>
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform09.png %}" alt="OpenGL Perspective Viewing Frustum"  width="700"  />
+<br><figcaption>
+Fig. 4. OpenGL Perspective Viewing Frustum.
+</figcaption>
+</div>
 
 
 The vertices of the far (back) plane can be simply calculated by the ratio of similar triangles, for example, the left of the far plane is:
@@ -229,9 +241,13 @@ $$
 
 For orthographic projection, this ratio will be 1, so the  _left_,  _right_,  _bottom_  and  _top_  values of the far plane will be the same as on the near plane.
 
-<center>
-<img src="./data/gl_transform11.png" alt="OpenGL Orthographic Frustum " width="700"/>
-</center>
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform11.png %}" alt="OpenGL Orthographic Frustum"  width="700"  />
+<br><figcaption>
+Fig. 5. OpenGL Orthographic Frustum.
+</figcaption>
+</div>
 
 You may also use `gluPerspective()` and `gluOrtho2D()` functions with less number of parameters.  **gluPerspective()**  requires only 4 parameters; vertical field of view (FOV), the aspect ratio of width to height and the distances to near and far clipping planes. The equivalent conversion from `gluPerspective()` to `glFrustum()` is described in the following code.
 
@@ -252,9 +268,13 @@ void makeFrustum(double fovY, double aspectRatio, double front, double back)
 }
 ```
 
-<center>
-<img src="./data/gl_transform15.png" alt="An example of an asymmetric frustum" width="700"/>
-</center>
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform15.png %}" alt="An example of an asymmetric frustum"  width="700"  />
+<br><figcaption>
+Fig. 6. An example of an asymmetric frustum.
+</figcaption>
+</div>
 
 
 However, you have to use `glFrustum()` directly if you need to create a non-symmetrical viewing volume. For example, if you want to render a wide scene into 2 adjoining screens, you can break down the frustum into 2 asymmetric frustums (left and right). Then, render the scene with each frustum.
@@ -294,9 +314,12 @@ The color components $(r,  g,  b,  a)$ are multiplied by `GL_COLOR` matrix. It c
 ## Example: ModelView Matrix
 
 
-<center>
-<img src="./data/gl_transform01.png" alt="Example of OpenGL ModelView Matrix" width="700"/>
-</center>
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform01.png %}" alt="Example of OpenGL ModelView Matrix"  width="700"  />
+<br><figcaption>
+Fig. 7. An Example of OpenGL ModelView Matrix.
+</figcaption>
+</div>
 
 This demo application shows how to manipulate GL_MODELVIEW matrix by translation and rotation transforms.
 
@@ -369,9 +392,13 @@ glPopMatrix();
 
 ## Example: Projection Matrix
 
-<center>
-<img src="./data/gl_transform06.png" alt="Example of OpenGL Projection Matrix" width="700"/>
-</center>
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_transform06.png %}" alt="Example of OpenGL Projection Matrix"  width="700"  />
+<br><figcaption>
+Fig. 8. An example of OpenGL Projection Matrix.
+</figcaption>
+</div>
 
 This demo application is to show how to manipulate the projection transformation with 6 parameters; left, right, bottom, top, near and far values.
 

@@ -5,20 +5,42 @@ date:   2021-10-17 16:18:12 -0700
 categories: Computer Vision
 ---
 
-# Spatial descriptions and transformations
-
 > see Introuction to Robotics Mechanics and Control, by Joh J. Craig, [pdf link](https://www.changjiangcai.com/files/text-books/Introduction-to-Robotics-3rd-edition.pdf)
 
-## Spatial descriptions and transformations
 
-- Notation
+## Notation
 
-<img src="../files/intro-robotics-01.png" alt="drawing" width="700"/>
+---
 
-- homogenerous tranform
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/files/intro-robotics-01.png %}" alt="Coordinate system notation"  width="800"  />
+<br><figcaption>
+Fig. 1. Coordinate system notation.
+</figcaption>
+</div>
 
-<img src="../files/intro-robotics-02.png" alt="drawing" width="800"/>
+---
 
-- homogenerous tranform matric representation
+## homogenerous tranform
 
-<img src="../files/intro-robotics-03.png" alt="drawing" width="700"/>
+---
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/files/intro-robotics-02.png %}" alt="homogenerous tranform"  width="800"  />
+<br><figcaption>
+Fig. 2. homogenerous tranform.
+</figcaption>
+</div>
+
+---
+
+## homogenerous tranform matric representation
+
+---
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/files/intro-robotics-03.png %}" alt="homogenerous tranform matric representation"  width="800"  />
+<br><figcaption>
+Fig. 3. homogenerous tranform matric representation.
+</figcaption>
+</div>

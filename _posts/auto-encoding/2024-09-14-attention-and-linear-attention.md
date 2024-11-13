@@ -10,7 +10,7 @@ categories: Transformer
 Please see this figure which compares regular attention vs linear attention. This figure is copied from the paper [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243) or the github repo [Linear Attention Transformer](https://github.com/lucidrains/linear-attention-transformer).
 
 <p align="center">
-    <img src="images/78_annotated-diffusion/linear-attention.png" width="700" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/linear-attention.png %}" width="800" />
 </p>
 <p align="center"><b>Figure 1:</b> Illustration of the architecture of dot-product and efficient attention.</p>
 
@@ -26,22 +26,22 @@ See the following study notes about this regular attention.
 - Definition
 
 <p align="center">
-    <img src="images/attention/attention-01.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-01.jpg %}" width="700" />
 </p>
 
 - Complexity
 <p align="center">
-    <img src="images/attention/attention-02.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-02.jpg %}" width="700" />
 </p>
 - Interpretation 
 
 <p align="center">
-    <img src="images/attention/attention-03.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-03.jpg %}" width="700" />
 </p>
 - Implementation
 
 <p align="center">
-    <img src="images/attention/attention-04.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-04.jpg %}" width="700" />
 </p>
 
 
@@ -56,18 +56,18 @@ See the following study notes about linear attention.
 - Definition
 
 <p align="center">
-    <img src="images/attention/attention-05.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-05.jpg %}" width="700" />
 </p>
 
 - Complexity
 <p align="center">
-    <img src="images/attention/attention-06.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-06.jpg %}" width="700" />
 </p>
 
 - Implementation
 
 <p align="center">
-    <img src="images/attention/attention-07.jpg" width="500" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/attention/attention-07.jpg %}" width="700" />
 </p>
 
 ### How to understand the context $C$?

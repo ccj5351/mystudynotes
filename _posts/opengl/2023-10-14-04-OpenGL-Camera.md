@@ -22,7 +22,13 @@ categories: OpenGL
 
 ## Overview
 
-![OpenGL Eye Space | center ](./data/gl_camera01.png)  
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera01.png %}" alt="OpenGL Eye Space"  width="600"  />
+<br><figcaption>
+Fig. 1. OpenGL Eye Space.
+</figcaption>
+</div>
 
 OpenGL camera is always at origin and facing to $-Z$ in eye space.
 
@@ -32,9 +38,9 @@ Because of this, OpenGL uses a single GL_MODELVIEW matrix for both object transf
 
 You may break it down into 2 logical sub matrices:
 
-$$ M_{\text{modelView}} = M_{view} \cdot M_{model} $$
+$$ M_{\text{modelView}} = M_{\text{view}} \cdot M_{\text{model}} $$
 
-That is, each object in a scene is transformed with its own  $M_{model} $  first, then the entire scene is transformed reversely with  $M_\text{view}$. In this page, we will discuss only  $M_\text{view}$  for camera transformation in OpenGL.
+That is, each object in a scene is transformed with its own  $M\_{\text{model}} $  first, then the entire scene is transformed reversely with  $M\_{\text{view}}$. In this page, we will discuss only  $M\_{\text{view}}$  for camera transformation in OpenGL.
 
 ## LookAt
 
@@ -68,8 +74,16 @@ r_2 & r_6 & r_{10} & r_2 t_x+r_6 t_y+r_{10} t_z \\
 \end{array}\right)
 $$
 
-![Camera lookAt animation |center](./data/gl_camera02.gif)  
+---
 
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera02.gif %}" alt="Camera lookAt animation"  width="600"  />
+<br><figcaption>
+Fig. 2. Camera lookAt animation.
+</figcaption>
+</div>
+
+---
 
 Suppose a camera is located at `(2, 0, 3)` and looking at `(0, 0, 0)` in world space. In order to construct the viewing matrix for this case, we need to translate the world to `(-2, 0, -3)` and rotate it about -33.7 degrees along Y-axis. As a result, the virtual camera becomes facing to $-Z$ axis at the origin.
 
@@ -84,7 +98,12 @@ M_T = \left(\begin{array}{cccc}
 \end{array}\right)
 $$
 
-![left, up and forward vector | center | 400x0](./data/gl_camera05.png)  
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera05.png %}" alt="left, up and forward vector"  width="600"  />
+<br><figcaption> Fig. 3. left, up and forward vector.
+</figcaption>
+</div>
 
 
 The rotation part  $M_R$  of lookAt is much harder than translation because you have to calculate 1st, 2nd and 3rd columns of the rotation matrix all together.
@@ -103,17 +122,39 @@ These 3 basis vectors,  $i$, $u$ and $f$ are used to construct the rotation matr
 
 - The scene rotates downward if the camera is above:
 
-![Camera pitch animation |center](./data/gl_camera03.gif)  
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera03.gif %}" alt="Camera pitch animation"  width="600"  />
+<br><figcaption>
+Fig. 4. Camera pitch animation.
+</figcaption>
+</div>
 
 - The scene rotates to the right if the camera is on left:
 
-![Camera yaw animation | center](./data/gl_camera04.gif)  
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera05.png %}" alt="left, up and forward vector"  width="600"  />
+<br><figcaption>
+Fig. 5. left, up and forward vector.
+</figcaption>
+</div>
 
-Therefore, the rotation part  $M_R$  of lookAt is finding the rotation matrix from the target to the eye position, then inverting it. And, the inverse matrix is equal to its transpose matrix because it is orthogonal (i.e., each column has a unit length and is perpendicular to the other column).  
-![Ratation matrix of lookAt | center | 0x200](./data/gl_camera_eq11.png)
+Therefore, the rotation part  $M_R$  of lookAt is finding the rotation matrix from the target to the eye position, then inverting it. And, the inverse matrix is equal to its transpose matrix because it is orthogonal (i.e., each column has a unit length and is perpendicular to the other column).
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera_eq11.png %}" alt="Ratation matrix of lookAt"  width="600"  />
+<br><figcaption>
+Fig. 6. Ratation matrix of lookAt.
+</figcaption>
+</div>
 
 Finally, the view matrix for the camera's lookAt transform is multiplying  $M_T$  and  $M_R$  together;  
-![OpenGL LookAt matrix | center | 0x200 ](./data/gl_camera_eq12.png)
+
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera_eq12.png %}" alt="OpenGL LookAt matrix"  width="800"  />
+<br><figcaption>
+Fig. 7. OpenGL LookAt matrix.
+</figcaption>
+</div>
 
 Here is C++ snippet to construct the view matrix for the camera's lookAt transformation. Please see the details in  [OrbitCamera.cpp](https://www.songho.ca/opengl/files/OrbitCamera.zip).
 
@@ -174,7 +215,12 @@ Matrix4 lookAt(Vector3& eye, Vector3& target, Vector3& upDir)
 
 ### Rotation (Pitch, Yaw, Roll)
 
-![camera pitch, yaw roll | center | 400x0 ](./data/gl_camera07.png)  
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera07.png %}" alt="amera pitch, yaw roll"  width="600"  />
+<br><figcaption>
+Fig. 8. amera pitch, yaw roll.
+</figcaption>
+</div>
 
 Other types of camera's rotations are  **pitch**,  **yaw**, and  **roll**  rotating at the position of the camera.  **Pitch**  is rotating the camera up and down around the camera's local left axis (+X axis).  **Yaw**  is rotating left and right around the camera's local up axis (+Y axis). And,  **Roll**  is rotating it around the camera's local forward axis (+Z axis).
 
@@ -192,7 +238,12 @@ To do ...
 
 ### Example: OpenGL Orbit Camera
 
-![OpenGL OrbitCamera |center ](./data/gl_orbitCamera01.png)
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_camera05.png %}" alt="OpenGL OrbitCamera"  width="600"  />
+<br><figcaption>
+Fig. 9. OpenGL OrbitCamera.
+</figcaption>
+</div>
 
 Download source and binary:  
 _(Updated: 2021-03-10)_
@@ -201,6 +252,11 @@ _(Updated: 2021-03-10)_
 
 ### Example: Trackball
 
-![OpenGL Trackball |center ](./gl_trackball01.png)
+<div align="center">
+<img  src="{{ site.baseurl }}{% link docs/opengl/data/gl_trackball01.png %}" alt="OpenGL Trackball"  width="700"  />
+<br><figcaption>
+Fig. 10. OpenGL Trackball.
+</figcaption>
+</div>
 
 Download:  [trackball.zip](https://www.songho.ca/opengl/files/trackball.zip)

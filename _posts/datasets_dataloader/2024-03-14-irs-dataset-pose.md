@@ -19,7 +19,7 @@ The raw camera poses in IRS dataset are generated in the Unreal Engine (UN), and
 
 - The number of lines/poses is the same as the number of image frames in the current folder.
 
-- The first 7 numbers of each line are '**tx ty tz qx qy qz qw**', where
+- The first 7 numbers of each line are **tx ty tz qx qy qz qw**, where
 
   - **tx ty tz** give the camera-to-world translation (in centimeters) in UE coordinate system.
   - **qx qy qz qw** give a camera-to-world orientation in the form of a unit quaternion.
@@ -102,27 +102,27 @@ pose_quats = np.loadtxt(pose_src_file, comments='#',
 It is because we use the following pipeline to connect RGB, camera, and world:
 
 RGB image $(x,y)$ with $x$ pointing to the right, $y$ down, and image `origin` in the `left-top corner`
----> camera intrinsic K and inverse invK ---> camera points $P^{c}$ = $(X^{c}, Y^{c},Z^{c})$
----> camera extrinsic E and inverse invE ---> world points $P^{w}$ = $(X^{w}, Y^{w},Z^{w})$.
+---> camera intrinsic matrix $K$ and inverse $K^{-1}$ ---> camera points $P^{c}$ = $(X^{c}, Y^{c},Z^{c})$
+---> camera extrinsic matrix $E$ and inverse $E^{-1}$ ---> world points $P^{w}$ = $(X^{w}, Y^{w},Z^{w})$.
 
 
 ### 2.4 Notation
 
 Assume we have the following coordinate systems:
 
-- `wue`: the world coordinate in UE (x Forward, y Right, z Up) format;
-- `cned`: the camera coordinate in UE (x Forward, y Right, z Up) format;
-- `w`: the world coordinate in OpenCV style (x Right, y Down, z Forward);
-- `c`: the camera coordinate in OpenCV style (x Right, y Down, z Forward);
+- **wue**: the world coordinate in UE (x Forward, y Right, z Up) format;
+- **cue**: the camera coordinate in UE (x Forward, y Right, z Up) format;
+- **w**: the world coordinate in OpenCV style (x Right, y Down, z Forward);
+- **c**: the camera coordinate in OpenCV style (x Right, y Down, z Forward);
 
 
 ### 2.5. How to get the transformation matrix from UE to OpenCV Style
 
-- The matrix is defined as $T^{w}_{wue}$ to map the points $P^{wue}$ to the points $P^{w}$, i.e., $P^{w}$ = $T^{w}_{wue}$ * $P^{wue}$
+- The matrix is defined as $T^{w}\_{\text{wue}}$ to map the points $P^{\text{wue}}$ to the points $P^{w}$, i.e., $P^{w}$ = $T^{w}\_{\text{wue}}$ * $P^{\text{wue}}$
 
-- The matrix is `also` defined as $T^{c}_{cue}$ to map the points $P^{cuw}$ to the points $P^{c}$, i.e., $P^{c}$ = $T^{c}_{cue}$ * $P^{cue}$
+- The matrix is `also` defined as $T^{c}\_{\text{cue}}$ to map the points $P^{\text{cuw}}$ to the points $P^{c}$, i.e., $P^{c}$ = $T^{c}\_{\text{cue}}$ * $P^{\text{cue}}$
 
-- To find $T^{w}_{wue}$ is to project (or to calculate the `dot-product` between) each axis (as a unit vector) of $x^{wue}$, $y^{wue}$, $z^{wue}$, into the axis $x^w$, $y^w$, $z^w$. 
+- To find $T^{w}_{\text{wue}}$ is to project (or to calculate the `dot-product` between) each axis (as a unit vector) of $x^{\text{wue}}$, $y^{\text{wue}}$, $z^{\text{wue}}$, into the axis $x^w$, $y^w$, $z^w$. 
 - *You can check the details in Chapter 2.2 of the book John J. Craig, Introduction to Robotics: Mechanics and Control, Third Edition (2005).*
 
 - Following the coordinates drawn above, we can get this matrix as:
@@ -135,17 +135,17 @@ Assume we have the following coordinate systems:
                   [0,0,0,1]], dtype=np.float32)
 ```
 
-- And we have $T^{w}_{wue}$ = $T^{c}_{ue}$ = $T$.
+- And we have $T^{w}\_{wue}$ = $T^{c}\_{cue}$ = $T$.
 
 ## 3. How to map the camera-to-world pose in UE to OpenCV-Style
 
 - OpenCV-style camera-to-world pose: 
-  - We want to find the cam-to-world pose $T^{w}_{c}$, which do the mapping $P^w = T^{w}_{c} * P^{c}$.
+  - We want to find the cam-to-world pose $T^{w}\_{c}$, which do the mapping $P^w = T^{w}\_{c} * P^{c}$.
   - note: `$T^{w}_{c}$` etc are in LaTex style if not shown correctly.
 
 
 - Apply the chain rule, we have:
 
-$T^{w}_{c}$ = $T^{w}_{wue}$ * $T^{wue}_{cue}$ * $T^{cue}_{c}$ = $T$ * `camera-to-world-pose-UE` * inv(T)
+$T^{w}\_{c}$ = $T^{w}\_{\text{wue}}$ * $T^{\text{wue}}\_{\text{cue}}$ * $T^{\text{cue}}\_{c}$ = $T$ * `"camera-to-world-pose-UE"` * inv(T)
 
 where, the `camera-to-wolrd pose in UE` can be loaded from the `UE_trace.txt` beforementioned.

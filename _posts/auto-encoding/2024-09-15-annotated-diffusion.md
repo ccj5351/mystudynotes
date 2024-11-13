@@ -9,8 +9,6 @@ categories: Diffusion
 This is my study note of the blog
 [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) by Niels Rogge and Kashif Rasul.
 
-> see link https://huggingface.co/blog/annotated-diffusion
-
  
 In this blog post, we'll take a deeper look into **Denoising Diffusion Probabilistic Models** (also known as DDPMs, diffusion models, score-based generative models or simply [autoencoders](https://benanne.github.io/2022/01/31/diffusion.html)) as researchers have been able to achieve remarkable results with them for (un)conditional image/audio/video generation. Popular examples (at the time of writing) include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg and [ImageGen](https://imagen.research.google/) by Google Brain.
 
@@ -53,7 +51,7 @@ In a bit more detail for images, the set-up consists of 2 processes:
 
 
 <div align="center">
-    <img src="images/78_annotated-diffusion/diffusion_figure.png" width="600" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/diffusion_figure.png %}" width="600" />
 </div>
 
 
@@ -64,7 +62,7 @@ Both the forward and reverse process indexed by $t$ happen for some number of fi
 Let's write this down more formally, as ultimately we need a tractable loss function which our neural network needs to optimize. 
 
 ### Forward diffusion process $q$
-Let $q(\mathbf{x}_0)$ be the real data distribution, say of "real images". We can sample from this distribution to get an image, $\mathbf{x}_0 \sim q(\mathbf{x}_0)$. We define the forward diffusion process $q(\mathbf{x}_t | \mathbf{x}_{t-1})$ which adds Gaussian noise at each time step $t$, according to a known variance schedule $0 < \beta_1 < \beta_2 < ... < \beta_T < 1$ as
+Let $q(\mathbf{x}\_0)$ be the real data distribution, say of "real images". We can sample from this distribution to get an image, $\mathbf{x}\_0 \sim q(\mathbf{x}\_0)$. We define the forward diffusion process $q(\mathbf{x}\_t | \mathbf{x}\_{t-1})$ which adds Gaussian noise at each time step $t$, according to a known variance schedule $0 < \beta\_1 < \beta\_2 < ... < \beta\_T < 1$ as
 
 $$
 q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}). 
@@ -73,7 +71,7 @@ $$
 
 Recall that a normal distribution (also called Gaussian distribution) is defined by 2 parameters: a mean $\mu$ and a variance $\sigma^2 \geq 0$. 
 
-Basically, each new (slightly noisier) image $\mathbf{x}_t$ at time step $t$ is drawn from a **conditional Gaussian distribution** with $\mathbf{\mu}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1}$ and $\sigma^2_t = \beta_t$, which we can do by leveraging the <font color='red'>**reparameterization trick**</font> to sample $\mathbf{\epsilon_{t-1}} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and then setting 
+Basically, each new (slightly noisier) image $\mathbf{x}\_t$ at time step $t$ is drawn from a **conditional Gaussian distribution** with $\mathbf{\mu}\_t = \sqrt{1 - \beta\_t} \mathbf{x}\_{t-1}$ and $\sigma^2\_t = \beta_t$, which we can do by leveraging the **<font color='red'>reparameterization trick</font>** to sample $\mathbf{\epsilon\_{t-1}} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and then setting 
 
 $$\mathbf{x}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1} +  \sqrt{\beta_t} \mathbf{\epsilon_{t-1}}
 \tag{2}
@@ -82,15 +80,15 @@ $$
 
 ---
 
-Note that the $\beta_t$ aren't constant at each time step $t$ (hence the subscript) --- in fact one defines a so-called <font color='red'>**"variance schedule"**</font>, which can be linear, quadratic, cosine, etc. as we will see further (a bit like a learning rate schedule). 
+Note that the $\beta_t$ aren't constant at each time step $t$ (hence the subscript) --- in fact one defines a so-called **<font color='red'>"variance schedule"</font>**, which can be linear, quadratic, cosine, etc. as we will see further (a bit like a learning rate schedule). 
 
-So starting from $\mathbf{x}_0$, we end up with $\mathbf{x}_1,  ..., \mathbf{x}_t, ..., \mathbf{x}_T$, where $\mathbf{x}_T$ is pure Gaussian noise if we set the schedule appropriately.
+So starting from $\mathbf{x}\_0$, we end up with $\mathbf{x}\_1,  ..., \mathbf{x}\_t, ..., \mathbf{x}\_T$, where $\mathbf{x}\_T$ is pure Gaussian noise if we set the schedule appropriately.
 
-### Reverse denoising diffusion process $p_\theta$
+### Reverse denoising diffusion process $p\_\theta$
 
-Now, if we knew the conditional distribution $p(\mathbf{x}_{t-1} | \mathbf{x}_t)$, then we could run the process in reverse: by sampling some random Gaussian noise $\mathbf{x}_T$, and then gradually "denoise" it so that we end up with a sample from the real distribution $\mathbf{x}_0$.
+Now, if we knew the conditional distribution $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$, then we could run the process in reverse: by sampling some random Gaussian noise $\mathbf{x}\_T$, and then gradually "denoise" it so that we end up with a sample from the real distribution $\mathbf{x}\_0$.
 
-However, we don't know $p(\mathbf{x}_{t-1} | \mathbf{x}_t)$. It's <font color='red'>**intractable**</font> since it requires knowing the distribution of all possible images in order to calculate this conditional probability. Hence, we're going to leverage a neural network to **approximate (learn) this conditional probability distribution**, let's call it $p_\theta (\mathbf{x}_{t-1} | \mathbf{x}_t)$, with $\theta$ being the parameters of the neural network, updated by gradient descent. 
+However, we don't know $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$. It's **<font color='red'>intractable</font>** since it requires knowing the distribution of all possible images in order to calculate this conditional probability. Hence, we're going to leverage a neural network to **approximate (learn) this conditional probability distribution**, let's call it $p\_\theta (\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$, with $\theta$ being the parameters of the neural network, updated by gradient descent. 
 
 Ok, so we need a neural network to represent a (conditional) probability distribution of the backward process. If we assume this reverse process is Gaussian as well, then recall that any Gaussian distribution is defined by 2 parameters:
 * a mean parametrized by $\mu_\theta$;
@@ -113,84 +111,84 @@ This was then later improved in the [Improved diffusion models](https://openrevi
 So we continue, assuming that our neural network only needs to learn/represent the mean of this conditional probability distribution.
 
 
-#### My study notes
+#### <font color='red'> My study notes </font>
 > Q1: Why the forward diffusion process is doable or more specificaly, fixed and pre-defined (aka non-learning)?
 
-It is because there are no unknown parameters in the forward conditional Gaussian probability $q(\mathbf{x}_t | \mathbf{x}_{t-1})$ as in Eq (1). We can easily get $\mathbf{x}_t$ from $\mathbf{x}_{t-1}$ based on this conditional probability and the **reparameterization trick** as in Eq (2).
+It is because there are no unknown parameters in the forward conditional Gaussian probability $q(\mathbf{x}\_t \vert \mathbf{x}\_{t-1})$ as in Eq (1). We can easily get $\mathbf{x}\_t$ from $\mathbf{x}\_{t-1}$ based on this conditional probability and the **reparameterization trick** as in Eq (2).
 
 This reparameterization trick explains why the forward diffusion process is doable and how it is conducted:
-- At $t=0$, we sample a real image  $x_0$ from a data distribution (e.g., to sample an image of a cat from ImageNet), 
-- Given Eq (2), at new steps $t \in \{ 1,2, \dots, T \}$ , then we can sample some noise $\mathbf{\epsilon_{t-1}}$, which is added to the image $\mathbf{x_{t-1}}$ of the previous time step. 
-- Then we can get all the new images $\mathbf{x}_t$ in forward diffusion runs.
+- At $t=0$, we sample a real image  $x\_0$ from a data distribution (e.g., to sample an image of a cat from ImageNet), 
+- Given Eq (2), at new steps $t \in \{ 1,2, \dots, T \}$ , then we can sample some noise $\mathbf{\epsilon\_{t-1}}$, which is added to the image $\mathbf{x\_{t-1}}$ of the previous time step. 
+- Then we can get all the new images $\mathbf{x}\_t$ in forward diffusion runs.
 
 
 > Q2: Why the reverse denoising diffusion process is intractable?
 
-It is because there indeed are unknown parameters in the conditional distribution $p(\mathbf{x}_{t-1} | \mathbf{x}_t)$ as in Eq (3). 
-We do not know the mean $\mu_\theta$ and the variance $\Sigma_\theta$, and hence we <font color='red'>**CANNOT**</font> leverage the reparameterization trick to do the sampling iteratively:
+It is because there indeed are unknown parameters in the conditional distribution $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$ as in Eq (3). 
+We do not know the mean $\mu\_\theta$ and the variance $\Sigma\_\theta$, and hence we **<font color='red'>CANNOT</font>** leverage the reparameterization trick to do the sampling iteratively:
 
 $$\mathbf{x}_{t-1} = \mu_{\theta} \mathbf{x}_{t} +  \sqrt{\Sigma_\theta} \mathbf{\epsilon_{t}}
 \tag{4}
 $$
 
-We CANNOT get $\mathbf{x}_{t-1}$ from $\mathbf{x}_{t}$ based on this unknown conditional probability and the **reparameterization trick** as in Eq (4).
+We CANNOT get $\mathbf{x}\_{t-1}$ from $\mathbf{x}\_{t}$ based on this unknown conditional probability and the **reparameterization trick** as in Eq (4).
 
 
-Another way to interporate this "intractability" is from Bayes' theorem. 
+Another way to interporate this **"intractability"** is from Bayes' theorem. 
 
-- If we can reverse the above process and sample from $p(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. Note that if $\beta_t$ is small enough, $p(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ will also be Gaussian. <font color='red'> Unfortunately, we cannot easily estimate </font>  $p(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ because it needs to use <font color='red'> the entire dataset </font>. 
+- If we can reverse the above process and sample from $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}\_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. Note that if $\beta_t$ is small enough, $p(\mathbf{x}\_{t-1} \vert \mathbf{x}_t)$ will also be Gaussian. <font color='red'> Unfortunately, we cannot easily estimate </font>  $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t)$ because it needs to use <font color='red'> the entire dataset </font>. 
 - Recall Bayes’ rule:
 
 $$ 
 \begin{aligned}
 p(\mathbf{x}_{t-1} \vert \mathbf{x}_t) 
 &=  \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ p(\mathbf{x}_t ) } \\
-& \xRightarrow[\text{}]{\text{w.r.t hiden var. } z}   \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{z} p\left( \mathbf {x_t}, z \right) dz } =  \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{z} p\left( \mathbf {x_t} \vert z \right) p\left( \mathbf {z} \right) dz }  \\
-& \xRightarrow[\text{}]{\text{Or w.r.t any prev. } x } \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{\mathbf{x}_{t-1}} p(\mathbf{x}_t \vert \mathbf{x}_{t-1}) p(\mathbf{x}_{t-1}) d\mathbf{x}_{t-1} }  \\
+& \xrightarrow {\text{w.r.t hiden var. } z}   \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{z} p\left( \mathbf {x_t}, z \right) dz } =  \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{z} p\left( \mathbf {x_t} \vert z \right) p\left( \mathbf {z} \right) dz }  \\
+& \xrightarrow {\text{Or w.r.t any prev. } x } \frac{ p(\mathbf{x}_t \vert \mathbf{x}_{t-1})  p(\mathbf{x}_{t-1}) }{ \int_{\mathbf{x}_{t-1}} p(\mathbf{x}_t \vert \mathbf{x}_{t-1}) p(\mathbf{x}_{t-1}) d\mathbf{x}_{t-1} }  \\
 \end{aligned}
 \tag{5}
 $$
 
-- Therefore, the reverse conditional probability $p(\mathbf{x}_{t-1} \vert \mathbf{x}_t) $ as shown in Eq (3) and (5), is intractable because **<font color='red'> the integration </font>** is performed over the whole latent $z$ (or equivalently the previous samples $\mathbf{x}_{t-1}$) space, which is impractical when latent variables are continuous.
+- Therefore, the reverse conditional probability $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t) $ as shown in Eq (3) and (5), is intractable because **<font color='red'> the integration </font>** is performed over the whole latent $z$ (or equivalently the previous samples $\mathbf{x}\_{t-1}$) space, which is impractical when latent variables are continuous.
 
-- It is intractable, but should we do nothing? No! As we know that neural networks are universal function approximators that can approximate any functions to arbitrary precisions. Therefore, we could use a neural network with parameters $\theta$ to approximate the distribution $p(\mathbf{x}_{t-1} \vert \mathbf{x}_t) $, which gives us $p_{\theta}(\mathbf{x}_{t-1} \vert \mathbf{x}_t) $.
+- It is intractable, but should we do nothing? No! As we know that neural networks are universal function approximators that can approximate any functions to arbitrary precisions. Therefore, we could use a neural network with parameters $\theta$ to approximate the distribution $p(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t) $, which gives us $p\_{\theta}(\mathbf{x}\_{t-1} \vert \mathbf{x}\_t) $.
 
 ## Defining an objective function (by reparametrizing the mean)
 
-To derive an objective function to learn the mean of the backward process, the authors observe that the combination of $q$ and $p_\theta$ can be seen as a variational auto-encoder (VAE) [(Kingma et al., 2013)](https://arxiv.org/abs/1312.6114). Hence, the **variational lower bound** (also called **ELBO (Evidence Lower Bound)**) can be used to minimize the negative log-likelihood with respect to  ground truth data sample $\mathbf{x}_0$ (we refer to the VAE paper for details regarding ELBO). It turns out that the ELBO for this process is a sum of losses at each time step $t$, 
+To derive an objective function to learn the mean of the backward process, the authors observe that the combination of $q$ and $p_\theta$ can be seen as a variational auto-encoder (VAE) [(Kingma et al., 2013)](https://arxiv.org/abs/1312.6114). Hence, the **variational lower bound** (also called **ELBO, Evidence Lower Bound**) can be used to minimize the negative log-likelihood with respect to  ground truth data sample $\mathbf{x}\_0$ (we refer to the VAE paper for details regarding ELBO). It turns out that the ELBO for this process is a sum of losses at each time step $t$, 
 
 $$L = L_0 + L_1 + ... + L_T
 \tag{6}
-$$. 
+$$
 
-By construction of the forward $q$ process and backward process, each term (except for $L_0$) of the loss is actually the **KL divergence between 2 Gaussian distributions** which can be written explicitly as an L2-loss with respect to the means!
+By construction of the forward $q$ process and backward process, each term (except for $L\_0$) of the loss is actually the **KL divergence between 2 Gaussian distributions** which can be written explicitly as an L2-loss with respect to the means!
 
-A direct consequence of the constructed forward process $q$, as shown by Sohl-Dickstein et al., is that we can sample $\mathbf{x}_t$ at any arbitrary noise level conditioned on $\mathbf{x}_0$ (<font color='red'> since sums of Gaussians is also Gaussian </font>). This is very convenient:  we don't need to apply $q$ repeatedly in order to sample $\mathbf{x}_t$.
+A direct consequence of the constructed forward process $q$, as shown by Sohl-Dickstein et al., is that we can sample $\mathbf{x}\_t$ at any arbitrary noise level conditioned on $\mathbf{x}\_0$ (<font color='red'> since sums of Gaussians is also Gaussian </font>). This is very convenient:  we don't need to apply $q$ repeatedly in order to sample $\mathbf{x}\_t$.
 
 We have that
 $$
 \begin{aligned}
-\text{nice property} \quad q(\mathbf{x}_t | \mathbf{x}_0) &= \cal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1- \bar{\alpha}_t) \mathbf{I}) \\ 
+\text{nice property} \quad q(\mathbf{x}_t \vert \mathbf{x}_0) &= \cal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1- \bar{\alpha}_t) \mathbf{I}) \\ 
 \text{ with } \alpha_t &:= 1 - \beta_t \text{ and } \\
 \bar{\alpha}_t &:= \Pi_{s=1}^{t} \alpha_s
 \end{aligned}
 \tag{7}
-$$.
+$$
 
 
-- Let's refer to this equation (7) as the "nice property". This means we can sample Gaussian noise and scale it appropriatly and add it to $\mathbf{x}_0$ to get $\mathbf{x}_t$ directly. Then similar to Eq (2) leveraging the `reparameterization` trick, we can get 
+- Let's refer to this equation (7) as the <font color='red'>"nice property"</font>. This means we can sample Gaussian noise and scale it appropriatly and add it to $\mathbf{x}\_0$ to get $\mathbf{x}\_t$ directly. Then similar to Eq (2) leveraging the *reparameterization* trick, we can get 
 
 $$\mathbf{x}_t = \sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{(1- \bar{\alpha}_t)} \mathbf{\epsilon}
 \tag{8}
 $$
 
-- Note that the $\bar{\alpha}_t$ are functions of the known $\beta_t$ `variance schedule` and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function $L$** (or in other words, to randomly sample $t$ during training and optimize $L_t$).
+- Note that the $\bar{\alpha}\_t$ are functions of the known $\beta_t$ `variance schedule` and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function $L$** (or in other words, to randomly sample $t$ during training and optimize $L\_t$).
 
-- Another beauty of this property, as shown in Ho et al. is that one can (after some math, for which we refer the reader to [this excellent blog post: What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$) for noise level $t$** in the KL terms which constitute the losses. This means that our neural network becomes a  **<font color='red'> noise predictor </font>**, rather than a (direct) mean predictor. The mean can be computed as follows:
+- Another beauty of this property, as shown in Ho et al. is that one can (after some math, for which we refer the reader to [this excellent blog post: What are Diffusion Models?](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$) for noise level $t$** in the KL terms which constitute the losses. This means that our neural network becomes a  **<font color='red'> noise predictor</font>**, rather than a (direct) mean predictor. The mean can be computed as follows:
 
 $$
 \begin{aligned}
-\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) &= \color{cyan}{\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \Big)} \\
+\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) &= \color{blue}{\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \Big)} \\
 \text{Thus } \mathbf{x}_{t-1} \sim p(\mathbf{x}_{t-1} \vert \mathbf{x}_t) &= \mathcal{N}(\mathbf{x}_{t-1}; \frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \Big), \boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t))
 \end{aligned}
 \tag{9}
@@ -203,12 +201,12 @@ $$ \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \|^2 = \| \m
 \tag{10}
 $$
 
-Here, $\mathbf{x}_0$ is the initial (real, uncorrupted) image, and we see the direct noise level $t$ sample given by the fixed forward process. $\mathbf{\epsilon}$ is the pure noise sampled at time step $t$, and $\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)$ is our neural network. The neural network is optimized using a simple mean squared error (MSE) between the true and the predicted Gaussian noise.
+Here, $\mathbf{x}\_0$ is the initial (real, uncorrupted) image, and we see the direct noise level $t$ sample given by the fixed forward process. $\mathbf{\epsilon}$ is the pure noise sampled at time step $t$, and $\mathbf{\epsilon}_\theta (\mathbf{x}\_t, t)$ is our neural network. The neural network is optimized using a simple mean squared error (MSE) between the true and the predicted Gaussian noise.
 
 The training algorithm now looks as follows:
 
 <div align="center">
-    <img src="images/78_annotated-diffusion/training.png" width="400" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/training.png %}" width="400" />
 </div>
 
 
@@ -229,10 +227,10 @@ What is typically used here is very similar to that of an [Autoencoder](https://
 In terms of architecture, the DDPM authors went for a **U-Net**, introduced by ([Ronneberger et al., 2015](https://arxiv.org/abs/1505.04597)) (which, at the time, achieved state-of-the-art results for medical image segmentation). This network, like any autoencoder, consists of a bottleneck in the middle that makes sure the network learns only the most important information. Importantly, it introduced residual connections between the encoder and decoder, greatly improving gradient flow (inspired by ResNet in [He et al., 2015](https://arxiv.org/abs/1512.03385)).
 
 <div align="center">
-    <img src="images/78_annotated-diffusion/unet_architecture.jpg" width="600" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/unet_architecture.jpg %}" width="600" />
 </div>
 
-As can be seen, a U-Net model first downsamples the input (i.e. makes the input smaller in terms of spatial resolution), after which upsampling is performed.
+As can be seen, a U-Net model first downsamples the input (i.e., makes the input smaller in terms of spatial resolution), after which upsampling is performed.
 
 Below, we implement this network, step-by-step.
 
@@ -289,7 +287,7 @@ def Downsample(dim, dim_out=None):
 
 As the parameters of the neural network are shared across time (noise level), the authors employ sinusoidal position embeddings to encode $t$, inspired by the Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)). This makes the neural network "know" at which particular time step (noise level) it is operating, for every image in a batch.
 
-The `SinusoidalPositionEmbeddings` module takes a tensor of shape `(batch_size, 1)` as input (i.e. the noise levels of several noisy images in a batch), and turns this into a tensor of shape `(batch_size, dim)`, with `dim` being the dimensionality of the position embeddings. This is then added to each residual block, as we will see further.
+The *SinusoidalPositionEmbeddings* module takes a tensor of shape *(batch_size, 1)* as input (i.e. the noise levels of several noisy images in a batch), and turns this into a tensor of shape *(batch_size, dim)*, with *dim* being the dimensionality of the position embeddings. This is then added to each residual block, as we will see further.
 
 ```python
 class SinusoidalPositionEmbeddings(nn.Module):
@@ -309,7 +307,7 @@ class SinusoidalPositionEmbeddings(nn.Module):
 
 ### ResNet block
 
-Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang has replaced the standard convolutional layer by a "weight standardized" version, which works better in combination with group normalization (see ([Kolesnikov et al., 2019](https://arxiv.org/abs/1912.11370)) for details).
+Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang has replaced the standard convolutional layer by a "weight standardized" version, which works better in combination with group normalization (see [Kolesnikov et al., 2019](https://arxiv.org/abs/1912.11370) for details).
 
 
 ```python
@@ -448,10 +446,10 @@ class LinearAttention(nn.Module):
 But I like this figure which compares regular attention vs linear attention. This figure is copied from the paper [Efficient Attention: Attention with Linear Complexities](https://arxiv.org/pdf/1812.01243) or the github repo [Linear Attention Transformer](https://github.com/lucidrains/linear-attention-transformer).
 
 <div align="center">
-    <img src="images/78_annotated-diffusion/linear-attention.png" width="700" />
+    <img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/linear-attention.png %}" width="700" />
 </div>
 
-See my study notes about [attention and linear attention](attention-and-linear-attention.md).
+See my study notes about [attention and linear attention]({{ site.baseurl }}{% link _posts/auto-encoding/2024-09-14-attention-and-linear-attention.md %}).
 
 
 ### Group normalization
@@ -508,7 +506,9 @@ class Unet(nn.Module):
         input_channels = channels * (2 if self_condition else 1)
 
         init_dim = default(init_dim, dim)
-        self.init_conv = nn.Conv2d(input_channels, init_dim, 1, padding=0) # changed to 1 and 0 from 7,3
+        
+        # changed to 1 and 0 from 7,3
+        self.init_conv = nn.Conv2d(input_channels, init_dim, 1, padding=0) 
 
         dims = [init_dim, *map(lambda m: dim * m, dim_mults)]
         in_out = list(zip(dims[:-1], dims[1:]))
@@ -655,7 +655,7 @@ def sigmoid_beta_schedule(timesteps):
     return torch.sigmoid(betas) * (beta_end - beta_start) + beta_start
 ```
 
-To start with, let's use the linear schedule for $T=300$ time steps and define the various variables from the $\beta_t$ which we will need, such as the cumulative product of the variances $\bar{\alpha}_t$. Each of the variables below are just 1-dimensional tensors, storing values from $t$ to $T$. Importantly, we also define an `extract` function, which will allow us to extract the appropriate $t$ index for a batch of indices.
+To start with, let's use the linear schedule for $T=300$ time steps and define the various variables from the $\beta\_t$ which we will need, such as the cumulative product of the variances $\bar{\alpha}\_t$. Each of the variables below are just 1-dimensional tensors, storing values from $t$ to $T$. Importantly, we also define an `extract` function, which will allow us to extract the appropriate $t$ index for a batch of indices.
 
 ```python
 timesteps = 300
@@ -693,7 +693,7 @@ image = Image.open(requests.get(url, stream=True).raw) # PIL image of shape HWC
 image
 ```
 <div align="center">
-<img src="images/78_annotated-diffusion/output_cats.jpeg" width="400" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/output_cats.jpeg %}" width="400" />
 </div>
 
 
@@ -722,13 +722,12 @@ x_start = transform(image).unsqueeze(0)
 x_start.shape
 ```
 
-<div class="output stream stdout">
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    torch.Size([1, 3, 128, 128])
-
-</div>
+```plain
+Output:
+---------------------------------------
+torch.Size([1, 3, 128, 128])
+```
 
 We also define the reverse transform, which takes in a PyTorch tensor containing values in $[-1, 1]$ and turn them back into a PIL image:
 
@@ -751,8 +750,9 @@ reverse_transform(x_start.squeeze())
 ```
     
 <div align="center">
-<img src="images/78_annotated-diffusion/output_cats_verify.png" width="100" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/output_cats_verify.png %}" width="100" />
 </div>
+
 We can now define the forward diffusion process as in the paper:
 
 
@@ -791,7 +791,7 @@ get_noisy_image(x_start, t)
 ```
 
 <div align="center">
-<img src="images/78_annotated-diffusion/output_cats_noisy.png" width="100" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/output_cats_noisy.png %}" width="100" />
 </div>
 
 Let's visualize this for various time steps:
@@ -833,7 +833,7 @@ plot([get_noisy_image(x_start, torch.tensor([t])) for t in [0, 50, 100, 150, 199
 ```
 
 <div align="center">
-<img src="images/78_annotated-diffusion/output_cats_noisy_multiple.png" width="800" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/output_cats_noisy_multiple.png %}" width="800" />
 </div>
     
 This means that we can now define the loss function given the model as follows:
@@ -911,13 +911,11 @@ batch = next(iter(dataloader))
 print(batch.keys())
 ```
 
-<div class="output stream stdout">
-
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    dict_keys(['pixel_values'])
-
-</div>
+```plain
+Output:
+--------------------------------------
+dict_keys(['pixel_values'])
+```
 
 
 ## Sampling
@@ -926,7 +924,7 @@ As we'll sample from the model during training (in order to track progress), we 
 
 
 <div align="center">
-<img src="images/78_annotated-diffusion/sampling.png" width="500" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/sampling.png %}" width="500" />
 </div>
 
 Generating new images from a diffusion model happens by reversing the diffusion process: we start from $T$, where we sample pure noise from a Gaussian distribution, and then use our neural network to gradually denoise it (using the conditional probability it has learned), until we end up at time step $t = 0$. As shown above, we can derive a slighly less denoised image $\mathbf{x}_{t-1 }$ by plugging in the reparametrization of the mean, using our noise predictor. Remember that the variance is known ahead of time.
@@ -1047,14 +1045,14 @@ for epoch in range(epochs):
       if step != 0 and step % save_and_sample_every == 0:
         milestone = step // save_and_sample_every
         batches = num_to_groups(4, batch_size)
-        all_images_list = list(map(lambda n: sample(model, batch_size=n, channels=channels), batches))
+        all_images_list = list(map(
+            lambda n: sample(model, batch_size=n, channels=channels), batches))
         all_images = torch.cat(all_images_list, dim=0)
         all_images = (all_images + 1) * 0.5
         save_image(all_images, str(results_folder / f'sample-{milestone}.png'), nrow = 6)
 ```
 
-<div class="output stream stdout">
-
+```plain
     Output:
     ----------------------------------------------------------------------------------------------------
     Loss: 0.46477368474006653
@@ -1082,8 +1080,7 @@ for epoch in range(epochs):
     Loss: 0.046371955424547195
     Loss: 0.04952816292643547
     Loss: 0.04472338408231735
-
-</div>
+```
 
 
 ## Sampling (inference)
@@ -1101,7 +1098,7 @@ plt.imshow(samples[-1][random_index].reshape(image_size, image_size, channels), 
 ```
 
 <div align="center">
-<img src="images/78_annotated-diffusion/output.png" width="300" >
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/output.png %}" width="300" >
 </div>
 
 Seems like the model is capable of generating a nice T-shirt! Keep in mind that the dataset we trained on is pretty low-resolution (28x28).
@@ -1116,7 +1113,10 @@ random_index = 53
 fig = plt.figure()
 ims = []
 for i in range(timesteps):
-    im = plt.imshow(samples[i][random_index].reshape(image_size, image_size, channels), cmap="gray", animated=True)
+    im = plt.imshow(
+        samples[i][random_index].reshape(
+            image_size, image_size, channels), 
+            cmap="gray", animated=True)
     ims.append([im])
 
 animate = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=1000)
@@ -1126,7 +1126,7 @@ plt.show()
 
 
 <div align="center">
-<img src="images/78_annotated-diffusion/diffusion-sweater.gif" width="300" />
+<img src="{{ site.baseurl }}{% link docs/auto-encoding/images/78_annotated-diffusion/diffusion-sweater.gif %}" width="300" />
 </div>
 
 ## Follow-up reads
@@ -1138,7 +1138,7 @@ Note that the DDPM paper showed that diffusion models are a promising direction 
 - Diffusion Models Beat GANs on Image Synthesis ([Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233)): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
 - Classifier-Free Diffusion Guidance ([Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI)): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model with a single neural network
 - Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) ([Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf)): uses a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
-- Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) ([Saharia et al., 2022](https://arxiv.org/abs/2205.11487)): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
+- Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) ([Saharia et al., 2022](https://arxiv.org/abs/2205.11487)): shows that combining a large pre-trained language model (e.g., T5) with cascaded diffusion works well for text-to-image synthesis
 
 Note that this list only includes important works until the time of writing, which is June 7th, 2022.
 

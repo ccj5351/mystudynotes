@@ -5,13 +5,17 @@ date:   2024-09-17 16:18:12 -0700
 categories: Transformer
 ---
 
-> see the blog at https://www.probabilitycourse.com/chapter6/6_2_5_jensen's_inequality.php
+```
+see the blog at https://www.probabilitycourse.com/chapter6/6_2_5_jensen's_inequality.php
+```
 
 Remember that variance of every random variable $X$ is a positive value, i.e.,
 
 $$\text{Var}(X)=E[X^2]−(E[X])^2 \geq 0$$
 
-Thus, $$EX^2≥(EX)^2$$
+Thus, 
+
+$$ EX^2≥(EX)^2 $$
 
 If we define $g(x)=x^2$, we can write the above inequality as 
 $$E[g(X)] \geq g(E[X])$$
@@ -23,7 +27,7 @@ So what is a convex function? Figure below depicts a convex function. A function
 
 
 <div  align="center">
-<img  src="images/convex_concave_func.png"  alt="Overview of different types of generative models. "  width="500"  />
+<img  src="{{ site.baseurl }}{% link docs/auto-encoding/images/convex_concave_func.png %}"  alt="Overview of different types of generative models. "  width="500"  />
 <figcaption>
 
 Fig. 1. Pictorial representation of a convex function and a concave function.
@@ -42,9 +46,9 @@ $$ g(\alpha x + (1−\alpha) y) \geq \alpha g(x) + (1− \alpha) g(y) $$
 
 Note that in the above definition the term $\alpha x + (1−\alpha) y$ is the weighted average of $x$ and $y$. Also, $\alpha g(x) + (1− \alpha) g(y)$ is the weighted average of $g(x)$ and $g(y)$. More generally, for a convex function 
 $ g: \mathbf{I} \rightarrow \mathbb{R}$
-, and $x_1$, $x_2$, ... ,$x_n$ in $\mathbf{I}$ and nonnegative real numbers $\alpha_i$ such that $\sum_i^n \alpha_i=1$, we have
+, and $x_1$, $x_2$, ... , $x_n$ in $\mathbf{I}$ and nonnegative real numbers $\alpha_i$ such that $\sum_i^n \alpha_i=1$, we have
 
-$$g(\sum_i^n {\alpha_i x_i}) ≤ \sum_i^n {\alpha_i g(x_i)} 
+$$g \left( \sum_i^n {\alpha_i x_i} \right) \leq \sum_i^n {\alpha_i g(x_i)} 
 \tag{1}
 $$
 
@@ -56,11 +60,13 @@ Now, consider a discrete random variable $X$ with $n$ possible values $x_1$, $x_
 
 ## Jensen's Inequality Definition
 
-> If $g(x)$ is a `convex` function on $\mathbf{R}_X$, and $E[g(X)]$ and $g(E[X])$ are finite, then 
-$$E[g(X)] \geq g(E[X])$$
+> If $g(x)$ is a `convex` function on $\mathbf{R}_X$, and $E[g(X)]$ and $g(E[X])$ are finite, then
+
+ $$ E[g(X)] \geq g(E[X]) $$
 
 > Similarly, if $g(x)$ is a `concave` function, then we have 
-$$E[g(X)] \leq g(E[X])$$
+
+$$ E[g(X)] \leq g(E[X]) $$
 
 To use Jensen's inequality, we need to determine if a function $g$ is convex. A useful method is the second derivative.
 
