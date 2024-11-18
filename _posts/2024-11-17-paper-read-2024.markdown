@@ -200,8 +200,9 @@ Paper Reading List in 2024 (Work-in-Progress)
 64. **ELFNet: Evidential Local-global Fusion for Stereo Matching (ICCV 2023)**  
     [Link to Paper](https://openaccess.thecvf.com/content/ICCV2023/papers/Lou_ELFNet_Evidential_Local-global_Fusion_for_Stereo_Matching_ICCV_2023_paper.pdf)
 
-65. **(check its Github repo for good attention visualization) Revisiting Stereo Depth Estimation From a Sequence-to-Sequence Perspective with Transformers, ICCV 2021 Oral**  
-    [Link to Paper](https://openaccess.thecvf.com/content/ICCV2021/papers/)
+65. **Revisiting Stereo Depth Estimation From a Sequence-to-Sequence Perspective with Transformers, ICCV 2021 Oral**  
+    [Link to Paper](https://openaccess.thecvf.com/content/ICCV2021/papers/)  
+    Check its [Github repo](https://github.com/mli0603/stereo-transformer) for good attention visualization.
 
 66. **Low-rank bottleneck in multi-head attention models, PMLR 2020**  
     [Link to Paper](https://arxiv.org/pdf/2002.07028)
@@ -219,7 +220,7 @@ Paper Reading List in 2024 (Work-in-Progress)
     [Link to Paper](https://arxiv.org/pdf/2410.11831)
 
 71. **Understanding Masked Image Modeling via Learning Occlusion Invariant Feature, CVPR 2023**  
-    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Kong_Understanding_Masked_Image_Modeling_via_Learning_Occlusion_Invariant_Feature_C
+    [Link to Paper](https://arxiv.org/pdf/2208.04164)
 
 76. **Diffusion Models for Monocular Depth Estimation: Overcoming Challenging Conditions, ECCV 2024**  
     [Link to Paper](https://arxiv.org/pdf/2407.16698)
