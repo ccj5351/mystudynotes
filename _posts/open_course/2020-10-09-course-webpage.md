@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Online Course Learning"
+title:  "🧑‍🏫 Online Course Learning"
 date:  2024-11-12
 categories: life-long learning
 ---
