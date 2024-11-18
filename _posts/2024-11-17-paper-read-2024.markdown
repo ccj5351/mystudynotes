@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Paper Reading List (2024)"
+title:  "🔥 Paper Reading List (2024)"
 date:   2024-11-13 16:18:12 -0700
 categories: paper reading
 ---
