@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Problem: Pylint E1101 Module 'torch' has no 'from_numpy' member"
+title:  "🛠️ Problem: Pylint E1101 Module 'torch' has no 'from_numpy' member"
 date:   2021-10-14 16:18:12 -0700
-categories: Code
+categories: Troubleshooting, Code
 ---
 
 ## Problem: 
