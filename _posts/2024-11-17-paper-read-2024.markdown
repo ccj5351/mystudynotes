@@ -1,0 +1,238 @@
+---
+layout: post
+title:  "Paper Reading List (2024)"
+date:   2024-11-13 16:18:12 -0700
+categories: paper reading
+---
+
+Paper Reading List in 2024 (Work-in-Progress)
+
+1. **S-VolSDF: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces**  
+   [Link to Paper](https://openaccess.thecvf.com/content/ICCV2023/papers/Wu_S-VolSDF_Sparse_Multi-View_Stereo_Regularization_of_Neural_Implicit_Surfaces_ICCV_2023_paper.pdf)
+
+2. **GenS: Generalizable Neural Surface Reconstruction from Multi-View Images**  
+   [Link to Paper](https://openreview.net/pdf?id=Rcit6V3vus)
+
+3. **Digging into Uncertainty in Self-supervised Multi-view Stereo**  
+   [Link to Paper](https://arxiv.org/pdf/2108.12966.pdf)
+
+4. **NerfingMVS: Guided Optimization of Neural Radiance Fields for Indoor Multi-view Stereo**  
+   [Link to Paper](https://arxiv.org/pdf/2109.01129.pdf)
+
+5. **Rethinking Depth Estimation for Multi-View Stereo: A Unified Representation**  
+   [Link to Paper](https://arxiv.org/pdf/2201.01501.pdf)
+
+6. **Learning Inverse Depth Regression for Multi-View Stereo with Correlation Cost Volume**  
+   [Link to Paper](https://arxiv.org/pdf/1912.11746.pdf)
+
+7. **Zip-NeRF: Anti-Aliased Grid-Based Neural Radiance Fields, ICCV 2023**  
+   [Link to Paper](https://arxiv.org/pdf/2304.06706.pdf)
+
+8. **Instant-NGP: Instant Neural Graphics Primitives with a Multiresolution Hash Encoding, SIGGRAPH 2022**  
+   [Link to Paper](https://nvlabs.github.io/instant-ngp/assets/mueller2022instant.pdf)
+
+9. **Mip-NeRF: A Multiscale Representation for Anti-Aliasing Neural Radiance Fields, ICCV 2021**  
+   [Link to Paper](https://jonbarron.info/mipnerf/)
+
+10. **Mip-nerf 360: Unbounded anti-aliased neural radiance fields, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2111.12077.pdf)
+
+11. **GMFlow: Learning Optical Flow via Global Matching, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2111.13680.pdf)
+
+12. **Iterative geometry encoding volume for stereo matching, CVPR 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2303.06615.pdf)
+
+13. **Parameterized Cost Volume for Stereo Matching, ICCV 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/ICCV2023/papers/Zeng_Parameterized_Cost_Volume_for_Stereo_Matching_ICCV_2023_paper.pdf)
+
+14. **High-frequency Stereo Matching Network, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhao_High-Frequency_Stereo_Matching_Network_CVPR_2023_paper.pdf)
+
+15. **Digging into uncertainty-based pseudo-label for robust stereo matching, TPAMI 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2307.16509.pdf)
+
+16. **Masked representation learning for domain generalized stereo matching, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Rao_Masked_Representation_Learning_for_Domain_Generalized_Stereo_Matching_CVPR_2023_paper.pdf)
+
+17. **Learning Depth Estimation for Transparent and Mirror Surfaces, ICCV 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2307.15052.pdf)
+
+18. **Efficient Multi-view Stereo by Iterative Dynamic Cost Volume, CVPR 2022**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2022/papers/Wang_Efficient_Multi-View_Stereo_by_Iterative_Dynamic_Cost_Volume_CVPR_2022_paper.pdf)
+
+19. **MVS2D: Efficient Multi-view Stereo via Attention-Driven 2D Convolutions, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2104.13325.pdf)
+
+20. **(DLNR) High-frequency stereo matching network, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhao_High-Frequency_Stereo_Matching_Network_CVPR_2023_paper.pdf)
+
+21. **(ACVNet) Attention Concatenation Volume for Accurate and Efficient Stereo Matching, CVPR 2022**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2022/papers/Xu_Attention_Concatenation_Volume_for_Accurate_and_Efficient_Stereo_Matching_CVPR_2022_paper.pdf)
+
+22. **Learning in the Frequency Domain, CVPR 2020**  
+    [Link to Paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Xu_Learning_in_the_Frequency_Domain_CVPR_2020_paper.pdf)
+
+23. **Fast Vision Transformers with HiLo Attention, NeurIPS 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2205.13213.pdf)
+
+24. **On the Over-Smoothing Problem of CNN Based Disparity Estimation, ICCV 2019**  
+    [Link to Paper](https://xiaozhichen.github.io/papers/iccv19chen.pdf)
+
+25. **(PDSNet) Practical Deep Stereo (PDS): Toward applications-friendly deep stereo matching, NeruIPS 2018**  
+    [Link to Paper](https://proceedings.neurips.cc/paper/2018/file/ade55409d1224074754035a5a937d2e0-Paper.pdf)
+
+26. **(NP-CVP-MVSNet) Non-parametric depth distribution modeling based depth inference for multi-view stereo, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2205.03783.pdf)
+
+27. **Itsa: An information-theoretic approach to automatic shortcut avoidance and domain generalization in stereo matching networks, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2201.02263.pdf)
+
+28. **GraftNet: Towards Domain Generalized Stereo Matching with a Broad-Spectrum and Task-Oriented Feature, CVPR 2022**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2022/papers/Liu_GraftNet_Towards_Domain_Generalized_Stereo_Matching_With_a_Broad-Spectrum_and_CVPR_2022_paper.pdf)
+
+29. **Extreme Rotation Estimation using Dense Correlation Volumes, CVPR 2021**  
+    [Link to Paper](https://arxiv.org/pdf/2104.13530.pdf)
+
+30. **The 8-Point Algorithm as an Inductive Bias for Relative Pose Prediction by ViTs, 3DV 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2208.08988.pdf)
+
+31. **DynamicStereo: Consistent Dynamic Depth from Stereo Videos, CVPR 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2305.02296.pdf)
+
+32. **Deep Depth Completion of a Single RGB-D Image, CVPR 2018**  
+    [Link to Paper](https://openaccess.thecvf.com/content_cvpr_2018/papers/Zhang_Deep_Depth_Completion_CVPR_2018_paper.pdf)
+
+33. **CompletionFormer: Depth Completion with Convolutions and Vision Transformers, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhang_CompletionFormer_Depth_Completion_With_Convolutions_and_Vision_Transformers_CVPR_2023_paper.pdf)
+
+34. **Depth Completion from Sparse LiDAR Data with Depth-Normal Constraints, ICCV 2019**  
+    [Link to Paper](https://openaccess.thecvf.com/content_ICCV_2019/papers/Xu_Depth_Completion_From_Sparse_LiDAR_Data_With_Depth-Normal_Constraints_ICCV_2019_paper.pdf)
+
+35. **Sparse-to-Dense: Depth Prediction from Sparse Depth Samples and a Single Image, ICRA 2018**  
+    [Link to Paper](https://arxiv.org/pdf/1709.07492.pdf)
+
+36. **LiStereo: Generate Dense Depth Maps from LIDAR and Stereo Imagery, ICRA 2020**  
+    [Link to Paper](https://arxiv.org/pdf/1905.02744.pdf)
+
+37. **High-precision Depth Estimation with the 3D LiDAR and Stereo Fusion, ICRA 2018**  
+    [Link to Paper](https://seungryong.github.io/publication/depth_ICRA2018.pdf)
+
+38. **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data, ArXiv**  
+    [Link to Paper](https://arxiv.org/pdf/2401.10891.pdf)
+
+39. **Mosaic-SDF for 3D Generative Models, ArXiv**  
+    [Link to Paper](https://arxiv.org/pdf/2312.09222.pdf)
+
+40. **SparsePose: Sparse-View Camera Pose Regression and Refinement, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Sinha_SparsePose_Sparse-View_Camera_Pose_Regression_and_Refinement_CVPR_2023_paper.pdf)
+
+41. **FlowFormer++: Masked Cost Volume Autoencoding for Pretraining Optical Flow Estimation, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Shi_FlowFormer_Masked_Cost_Volume_Autoencoding_for_Pretraining_Optical_Flow_Estimation_CVPR_2023_paper.pdf)
+
+42. **Propagate Yourself: Exploring Pixel-Level Consistency for Unsupervised Visual Representation Learning, CVPR 2021**  
+    [Link to Paper](https://arxiv.org/pdf/2011.10043.pdf)
+
+43. **DistractFlow: Improving Optical Flow Estimation via Realistic Distractions and Pseudo-Labeling, CVPR 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2303.14078.pdf)
+
+44. **Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results, NeurIPS 2018**  
+    [Link to Paper](https://arxiv.org/pdf/1703.01780.pdf)
+
+45. **(Flow-Supervisor) Semi-Supervised Learning of Optical Flow by Flow Supervisor, ECCV 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2207.10314.pdf)
+
+46. **ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth, ArXiv 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2302.12288.pdf)
+
+47. **GraftNet: Towards Domain Generalized Stereo Matching With a Broad-Spectrum and Task-Oriented Feature, CVPR 2022**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2022/papers/Liu_GraftNet_Towards_Domain_Generalized_Stereo_Matching_With_a_Broad-Spectrum_and_CVPR_2022_paper.pdf)
+
+48. **(CoodConv) An intriguing failing of convolutional neural networks and the CoordConv solution, NeurIPS 2018**  
+    [Link to Paper](https://arxiv.org/pdf/1807.03247.pdf)
+
+49. **(CODD) Temporally Consistent Online Depth Estimation in Dynamic Scenes, WACV 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/WACV2023/papers/Li_Temporally_Consistent_Online_Depth_Estimation_in_Dynamic_Scenes_WACV_2023_paper.pdf)
+
+50. **SPECTRAL NORMALIZATION FOR GENERATIVE ADVERSARIAL NETWORKS, ICLR 2018**  
+    [Link to Paper](https://arxiv.org/pdf/1802.05957.pdf)
+
+51. **NeuS: Learning Neural Implicit Surfaces by Volume Rendering for Multi-view Reconstruction, NeurIPS 2021**  
+    [Link to Paper](https://arxiv.org/pdf/2106.10689.pdf)
+
+52. **(Semantic-NeRF) In-Place Scene Labelling and Understanding with Implicit Scene Representation, ICCV 2021, Oral**  
+    [Link to Paper](https://arxiv.org/pdf/2103.15875.pdf)
+
+53. **VR-GS: A Physical Dynamics-Aware Interactive Gaussian Splatting System in Virtual Reality, ArXiv 2024**  
+    [Link to Paper](https://arxiv.org/pdf/2401.16663.pdf)
+
+54. **Gaussian Splatting SLAM, CVPR 2024**  
+    [Link to Paper](https://arxiv.org/pdf/2312.06741.pdf)
+
+55. **From Coarse to Fine: Robust Hierarchical Localization at Large Scale, CVPR 2019**  
+    [Link to Paper](https://arxiv.org/pdf/1812.03506.pdf)
+
+------ **LLMs, Vision-Language Models (VLMs)** ------
+
+56. **VINDLU: A Recipe for Effective Video-and-Language Pretraining, CVPR 2023**  
+    [Link to Paper](https://vision.soic.indiana.edu/papers/videoandlanguage2023cvpr.pdf)
+
+57. **Tag2Text: Guiding Vision-Language Model via Image Tagging, ICLR 2024**  
+    [Link to Paper](https://arxiv.org/abs/2303.05657)
+
+58. **(RAM) Recognize Anything: A Strong Image Tagging Model, CVPR Workshop 2024**  
+    [Link to Paper](https://arxiv.org/abs/2306.03514)
+
+59. **pixelSplat: 3D Gaussian Splats from Image Pairs for Scalable Generalizable 3D Reconstruction, CVPR 24, Oral**  
+    [Link to Paper](https://arxiv.org/pdf/2312.12337)
+
+60. **Unifying Flow, Stereo and Depth Estimation, TPAMI 2023**  
+    [Link to Paper](https://arxiv.org/abs/2211.05783)
+
+61. **Language-Assisted 3D Feature Learning for Semantic Scene Understanding, AAAI 2023**  
+    [Link to Paper](https://arxiv.org/pdf/2211.14091)
+
+62. **(Good Blog) - What are Diffusion Models?**  
+    [Link to Blog](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
+
+63. **(latent-diffusion) High-Resolution Image Synthesis with Latent Diffusion Models, CVPR 2022**  
+    [Link to Paper](https://github.com/CompVis/latent-diffusion)
+
+64. **ELFNet: Evidential Local-global Fusion for Stereo Matching (ICCV 2023)**  
+    [Link to Paper](https://openaccess.thecvf.com/content/ICCV2023/papers/Lou_ELFNet_Evidential_Local-global_Fusion_for_Stereo_Matching_ICCV_2023_paper.pdf)
+
+65. **(check its Github repo for good attention visualization) Revisiting Stereo Depth Estimation From a Sequence-to-Sequence Perspective with Transformers, ICCV 2021 Oral**  
+    [Link to Paper](https://openaccess.thecvf.com/content/ICCV2021/papers/)
+
+66. **Low-rank bottleneck in multi-head attention models, PMLR 2020**  
+    [Link to Paper](https://arxiv.org/pdf/2002.07028)
+
+67. **High-frequency Stereo Matching Network, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhao_High-Frequency_Stereo_Matching_Network_CVPR_2023_paper.pdf)
+
+68. **Selective-Stereo: Adaptive Frequency Information Selection for Stereo Matching, CVPR 2024**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_Selective-Stereo_Adaptive_Frequency_Information_Selection_for_Stereo_Matching_CVPR_2024_paper.pdf)
+
+69. **MoCha-Stereo: Motif Channel Attention Network for Stereo Matching, CVPR 2024**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_MoCha-Stereo_Motif_Channel_Attention_Network_for_Stereo_Matching_CVPR_2024_paper.pdf)
+
+70. **COTRACKER3: Simpler and Better Point Tracking by Pseudo-Labelling Real Videos**  
+    [Link to Paper](https://arxiv.org/pdf/2410.11831)
+
+71. **Understanding Masked Image Modeling via Learning Occlusion Invariant Feature, CVPR 2023**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Kong_Understanding_Masked_Image_Modeling_via_Learning_Occlusion_Invariant_Feature_C
+
+76. **Diffusion Models for Monocular Depth Estimation: Overcoming Challenging Conditions, ECCV 2024**  
+    [Link to Paper](https://arxiv.org/pdf/2407.16698)
+
+77. **3D VISION-LANGUAGE GAUSSIAN SPLATTING**  
+    [Link to Paper](https://arxiv.org/pdf/2410.07577)
+
+78. **3DGS-LM: Faster Gaussian-Splatting Optimization with Levenberg-Marquardt**  
+    [Link to Paper](https://arxiv.org/pdf/2409.12892)
+
+79. **Towards Foundation Models for 3D Vision: How Close Are We?**  
+    [Link to Paper](https://arxiv.org/pdf/2410.10799)
+
+80. **FlowDiffuser: Advancing Optical Flow Estimation with Diffusion Models, CVPR 2024**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2024/papers/Luo_FlowDiffuser_Advancing_Optical_Flow_Estimation_with_Diffusion_Models_CVPR_2024_paper.pdf)
