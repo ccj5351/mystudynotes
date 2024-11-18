@@ -172,7 +172,6 @@ Paper Reading List in 2024 (Work-in-Progress)
 55. **From Coarse to Fine: Robust Hierarchical Localization at Large Scale, CVPR 2019**  
     [Link to Paper](https://arxiv.org/pdf/1812.03506.pdf)
 
------- **LLMs, Vision-Language Models (VLMs)** ------
 
 56. **VINDLU: A Recipe for Effective Video-and-Language Pretraining, CVPR 2023**  
     [Link to Paper](https://vision.soic.indiana.edu/papers/videoandlanguage2023cvpr.pdf)
