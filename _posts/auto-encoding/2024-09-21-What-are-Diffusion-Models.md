@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "What are Diffusion Models and Study Notes?"
+title:  "📝 What are Diffusion Models and Study Notes?"
 date:   2024-09-21 16:18:12 -0700
 categories: Transformer
 ---
