@@ -236,3 +236,9 @@ Paper Reading List in 2024 (Work-in-Progress)
 
 80. **FlowDiffuser: Advancing Optical Flow Estimation with Diffusion Models, CVPR 2024**  
     [Link to Paper](https://openaccess.thecvf.com/content/CVPR2024/papers/Luo_FlowDiffuser_Advancing_Optical_Flow_Estimation_with_Diffusion_Models_CVPR_2024_paper.pdf)
+
+81. **(OSEDiff) One-Step Effective Diffusion Network for Real-World Image Super-Resolution, NeurIPS 2024**  
+    [Link to Paper](https://arxiv.org/pdf/2406.08177), [Link to Code](https://github.com/cswry/OSEDiff)
+
+82. **DiffRAW: Leveraging Diffusion Model to Generate DSLR-Comparable Perceptual Quality sRGB from Smartphone RAW Images, AAAI 2024**  
+    [Link to Paper N/A]()
