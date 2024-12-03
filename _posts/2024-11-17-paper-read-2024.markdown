@@ -242,3 +242,44 @@ Paper Reading List in 2024 (Work-in-Progress)
 
 82. **DiffRAW: Leveraging Diffusion Model to Generate DSLR-Comparable Perceptual Quality sRGB from Smartphone RAW Images, AAAI 2024**  
     [Link to Paper N/A]()
+83. **Patch-level Representation Learning for Self-supervised Vision Transformers, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2206.07990)
+
+84. **Self-Supervised Representation Learning from Flow Equivariance, ICCV 2021**  
+    [Link to Paper](https://arxiv.org/pdf/2101.06553)
+
+85. **3D Common Corruptions and Data Augmentation, CVPR 2022, Oral**  
+    [Link to Paper](https://arxiv.org/pdf/2203.01441)
+
+86. **NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video, CVPR 2021, Oral**  
+    [Link to Paper](https://arxiv.org/pdf/2104.00681)
+
+87. **Passthrough+: Real-time Stereoscopic View Synthesis for Mobile Mixed Reality, Proceedings of the ACM on Computer Graphics and Interactive Techniques, 2020**  
+    [Link to Paper](https://alexandruichim.com/pdf/Chaurasia_Passthrough_CGIT20.pdf)
+
+88. **Crafting Better Contrastive Views for Siamese Representation Learning, CVPR 2022, Oral**  
+    [Link to Paper](https://arxiv.org/pdf/2202.03278)
+
+89. **Masked Autoencoders Are Scalable Vision Learners**  
+    [Link to Paper](https://arxiv.org/pdf/2111.06377)
+
+90. **How to Understand Masked Autoencoders**  
+    [Link to Paper](https://arxiv.org/pdf/2202.03670)
+
+91. **Rethinking Depth Estimation for Multi-View Stereo: A Unified Representation, CVPR 2022**  
+    [Link to Paper](https://arxiv.org/pdf/2201.01501)
+
+92. **Deep Homography for Efficient Stereo Image Compression, CVPR 2021**  
+    [Link to Paper](https://openaccess.thecvf.com/content/CVPR2021/papers/Deng_Deep_Homography_for_Efficient_Stereo_Image_Compression_CVPR_2021_paper.pdf)
+
+93. **Revisiting Stereo Depth Estimation From a Sequence-to-Sequence Perspective with Transformers, ICCV 2021**  
+    [Link to Paper](https://github.com/mli0603/stereo-transformer)
+
+94. **DeepMVS: Learning Multi-View Stereopsis, CVPR 2018**  
+    [Link to Paper](https://github.com/phuang17/DeepMVS)
+
+95. **Neural RGB->D Sensing: Depth and Uncertainty from a Video Camera, CVPR 2019**  
+    [Link to Paper](https://arxiv.org/pdf/1901.02571)
+
+96. **Depth Map Prediction from a Single Image using a Multi-Scale Deep Network, NeurIPS 2014**  
+    [Link to Paper](https://arxiv.org/pdf/1406.2283)
