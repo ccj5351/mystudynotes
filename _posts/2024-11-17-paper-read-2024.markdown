@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post_s
 title:  "🔥 Paper Reading List (2024)"
 date:   2024-11-13 16:18:12 -0700
 categories: paper reading
@@ -283,7 +283,7 @@ Paper Reading List in 2024 (Work-in-Progress)
 
 96. **Depth Map Prediction from a Single Image using a Multi-Scale Deep Network, NeurIPS 2014**  
     [Link to Paper](https://arxiv.org/pdf/1406.2283)
-    
+
 97. **View-Consistent 3D Editing with Gaussian Splatting, ECCV 2024**  
    [Link to Paper](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/05210.pdf)
 
