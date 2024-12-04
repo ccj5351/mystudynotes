@@ -1,6 +1,6 @@
 ---
-layout: post
-title:  "🔥 Research Ideas Up-to-date (Since 2024 Dec)"
+layout: post_s
+title:  "🤔 🌀 💡Research Ideas Up-to-date (Since 2024 Dec)"
 date:   2024-12-04 16:18:12 -0700
 categories: paper reading, research ideas
 ---

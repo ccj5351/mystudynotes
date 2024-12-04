@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+{% include mathjax.html %}
+
+<article class="post">
+
+  <script type="text/javascript">
+  var password = prompt("Please enter the passcode to view this page:");
+  var correctPassword = "ccj2024"; // Set your password here
+
+  if (password !== correctPassword) {
+    alert("Incorrect passcode. Access denied.");
+    window.location.href = "/";  // Redirect to the homepage if the password is wrong
+  }
+ </script>
+
+  <h1>{{ page.title }}</h1>
+
+  <div class="entry">
+    {{ content }}
+  </div>
+
+  <div class="date">
+    Written on {{ page.date | date: "%B %e, %Y" }}
+  </div>
+
+  {% include disqus.html %}
+</article>
