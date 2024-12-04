@@ -283,3 +283,24 @@ Paper Reading List in 2024 (Work-in-Progress)
 
 96. **Depth Map Prediction from a Single Image using a Multi-Scale Deep Network, NeurIPS 2014**  
     [Link to Paper](https://arxiv.org/pdf/1406.2283)
+    
+97. **View-Consistent 3D Editing with Gaussian Splatting, ECCV 2024**  
+   [Link to Paper](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/05210.pdf)
+
+98. **Text2Scene: Text-Driven Indoor Scene Stylization with Part-Aware Details, CVPR 2023**  
+   [Link to Paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Hwang_Text2Scene_Text-Driven_Indoor_Scene_Stylization_With_Part-Aware_Details_CVPR_2023_paper.pdf)
+
+99. **Chat-Edit-3D: Interactive 3D Scene Editing via Text Prompts, ECCV 2024**  
+   [Link to Paper](https://arxiv.org/pdf/2407.06842v2)
+
+100. **HDRSplat: Gaussian Splatting for High Dynamic Range 3D Scene Reconstruction, BMVC 2024**  
+   [Link to Paper](https://github.com/shreyesss/HDRSplat)
+
+101. **pixelSplat: 3D Gaussian Splats from Image Pairs for Scalable Generalizable 3D Reconstruction, CVPR 2024 Oral**  
+   [Link to Paper](https://github.com/dcharatan/pixelsplat)
+
+102. **DepthSplat: Connecting Gaussian Splatting and Depth, arXiv 2024**  
+   [Link to Paper](https://github.com/cvg/depthsplat?tab=readme-ov-file)
+
+103. **SplaTAM: Splat, Track & Map 3D Gaussians for Dense RGB-D SLAM, CVPR 2024**  
+   [Link to Paper](https://github.com/spla-tam/SplaTAM)
