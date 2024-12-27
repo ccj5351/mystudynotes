@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Image Generation Popular Metrics"
+title:  "Image Generation Popular Metrics: FID, FD, IS"
 date:   2024-12-23 11:18:12 -0700
 categories: machine learning, image generation
 ---
