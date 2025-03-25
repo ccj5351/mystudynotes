@@ -691,10 +691,9 @@ It is possible for the consistency model to generate samples in a single step, w
 
 
 The paper introduced two ways to train consistency models:
-<ol>
-<li>
-<strong>Consistency Distillation (CD)</strong>: Distill a diffusion model into a consistency model by minimizing the difference between model outputs for pairs generated out of the same trajectory. This enables a much cheaper sampling evaluation. The consistency distillation loss is:
-</li>
+ 
+1. <strong>Consistency Distillation (CD)</strong>: Distill a diffusion model into a consistency model by minimizing the difference between model outputs for pairs generated out of the same trajectory. This enables a much cheaper sampling evaluation. The consistency distillation loss is:
+
 
 
 $$
@@ -716,9 +715,8 @@ where:
 - $\lambda(.) \in \mathbb{R}^+$ is a positive weighting function and the paper sets $\lambda(t_n)=1$.
 
 
-<li>
-<strong>Consistency Training (CT)</strong>: The other option is to train a consistency model independently. 
-</li>
+
+2. <strong>Consistency Training (CT)</strong>: The other option is to train a consistency model independently.
 
 Note that in CD, a pre-trained score model $s_\phi(\mathbf{x}, t)$ is used to approximate the ground truth score $\nabla\log p_t(\mathbf{x})$ but in CT we need a way to estimate this score function and it turns out an unbiased estimator of $\nabla\log p_t(\mathbf{x})$ exists as $-\frac{\mathbf{x}_t - \mathbf{x}}{t^2}$. The CT loss is defined as follows:
 
@@ -728,7 +726,6 @@ $$
 \text{ where }\mathbf{z} \in \mathcal{N}(\mathbf{0}, \mathbf{I})
 \tag{32}
 $$
-</ol>
 
 According to the experiments in the paper, they found,
 - Heun ODE solver works better than Euler&rsquo;s first-order solver, since higher order ODE solvers have smaller estimation errors with the same $N$.
