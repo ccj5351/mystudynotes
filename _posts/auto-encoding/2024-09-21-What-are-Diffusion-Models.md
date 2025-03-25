@@ -692,9 +692,7 @@ It is possible for the consistency model to generate samples in a single step, w
 
 The paper introduced two ways to train consistency models:
  
-1. <strong>Consistency Distillation (CD)</strong>: Distill a diffusion model into a consistency model by minimizing the difference between model outputs for pairs generated out of the same trajectory. This enables a much cheaper sampling evaluation. The consistency distillation loss is:
-
-
+<strong>Consistency Distillation (CD)</strong>: Distill a diffusion model into a consistency model by minimizing the difference between model outputs for pairs generated out of the same trajectory. This enables a much cheaper sampling evaluation. The consistency distillation loss is:
 
 $$
 \begin{aligned}
@@ -705,8 +703,7 @@ $$
 \tag{31}
 $$
 
-where:  
-
+where,  
 - $\Phi(.;\phi)$ is the update function of a one-step <a href="https://en.wikipedia.org/wiki/Ordinary_differential_equation">ODE</a> solver;
 - $n \sim \mathcal{U}[1, N-1]$, has an uniform distribution over $1, \dots, N-1$;
 - The network parameters $\theta^-$ is EMA (exponential moving average) version of $\theta$ which greatly stabilizes the training (just like in <a href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/#deep-q-network">DQN</a> or <a href="https://lilianweng.github.io/posts/2021-05-31-contrastive/#moco--moco-v2">momentum</a> contrastive learning);
@@ -716,7 +713,7 @@ where:
 
 
 
-2. <strong>Consistency Training (CT)</strong>: The other option is to train a consistency model independently.
+<strong>Consistency Training (CT)</strong>: The other option is to train a consistency model independently.
 
 Note that in CD, a pre-trained score model $s_\phi(\mathbf{x}, t)$ is used to approximate the ground truth score $\nabla\log p_t(\mathbf{x})$ but in CT we need a way to estimate this score function and it turns out an unbiased estimator of $\nabla\log p_t(\mathbf{x})$ exists as $-\frac{\mathbf{x}_t - \mathbf{x}}{t^2}$. The CT loss is defined as follows:
 
