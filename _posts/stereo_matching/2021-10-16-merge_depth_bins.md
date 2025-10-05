@@ -110,4 +110,4 @@ the bin merging. In this example, input hist bin number is 256, new hist bin num
 
 ## Complete Code
 
-- See the complete code [here](https://github.com/ccj5351/studynotes/edit/master/stereo-matching/merge_depth_bins.py)
+- See the complete code [here](https://github.com/ccj5351/mystudynotes/blob/master/docs/stereo_matching/merge_depth_bins.py)
