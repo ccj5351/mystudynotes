@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Quantization Fundamentals Study - 01"
-date:   2025-10-12 9:50:12 -0700
+date:   2025-10-12 12:50:12 -0400
 categories: quantization, on-device AI
 ---
 
