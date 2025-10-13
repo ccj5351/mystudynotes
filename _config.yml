@@ -11,6 +11,10 @@ description: Hi, this is Changjiang. I'm actively posting my study notes. Those 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars.githubusercontent.com/u/6752862?v=4&size=64
 
+# Favicon path
+#favicon: images/2792_BlobSweat.png
+favicon: images/Gemini_Generated_Image_logo.resized.png
+
 #
 # Flags below are optional
 #
@@ -75,9 +79,10 @@ sass:
   style: :expanded # You might prefer to minify using :compressed
 
 # Use the following plug-ins
-gems:
+plugins:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-seo-tag
 
 # Exclude these files from your production _site
 exclude:

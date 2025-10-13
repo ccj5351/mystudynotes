@@ -40,6 +40,8 @@ group :jekyll_plugins do
     #gem 'mini_racer'
     gem 'unicode_utils'
     gem 'webrick'
+    gem 'ostruct'
+    gem 'faraday-retry'
 end
 group :other_plugins do
     gem 'css_parser'
@@ -49,7 +51,11 @@ end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
-platforms :mingw, :x64_mingw, :mswin, :jruby do
+# CCJ: Updated on 2025-10-12 to fix the warning:
+# > bundle[DEPRECATED] Platform :mingw, :x64_mingw, :mswin is deprecated. 
+# > Please use platform :windows instead.
+# platforms :mingw, :x64_mingw, :mswin, :jruby do
+platforms :windows do
   gem "tzinfo", ">= 1", "< 3"
   gem "tzinfo-data"
 end
